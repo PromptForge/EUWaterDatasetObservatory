@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "generated": "2026-02-15T20:47:53.859841",
+    "total_records": 3500,
+    "domains": [
+      "groundwater",
+      "water_quality",
+      "floods",
+      "utilities",
+      "wfd_metrics",
+      "cross_cutting",
+      "agricultural_runoff"
+    ],
+    "countries": [
+      "SE",
+      "ES",
+      "NL",
+      "EL",
+      "DK",
+      "FI",
+      "FR",
+      "DE",
+      "EE",
+      "PL",
+      "BE",
+      "IT",
+      "BG",
+      "IE",
+      "AT",
+      "CZ",
+      "EU",
+      "PT",
+      "LV",
+      "SK",
+      "HU",
+      "RO",
+      "SI",
+      "HR",
+      "MT",
+      "CY",
+      "LT",
+      "LU"
+    ]
+  },
+  "overall_statistics": {
+    "early_warning": {
+      "mean": 0.44010857142857146,
+      "median": 0.44,
+      "std": 0.14433796371277427,
+      "ready_pct": 3.8,
+      "partial_pct": 56.68571428571428,
+      "insufficient_pct": 39.51428571428571
+    },
+    "compliance_reporting": {
+      "mean": 0.45126714285714287,
+      "median": 0.4600000000000001,
+      "std": 0.16164324364798388,
+      "ready_pct": 5.457142857142857,
+      "partial_pct": 57.51428571428572,
+      "insufficient_pct": 37.028571428571425
+    },
+    "cross_border": {
+      "mean": 0.46568000000000004,
+      "median": 0.4525,
+      "std": 0.16496133212803668,
+      "ready_pct": 9.885714285714284,
+      "partial_pct": 51.4,
+      "insufficient_pct": 38.714285714285715
+    }
+  },
+  "domain_statistics": {
+    "early_warning_score": {
+      "agricultural_runoff": 0.4405577956989248,
+      "cross_cutting": 0.4324458483754513,
+      "floods": 0.4380055732484076,
+      "groundwater": 0.44985321100917436,
+      "utilities": 0.4288970588235294,
+      "water_quality": 0.43668005354752343,
+      "wfd_metrics": 0.44986137667304016
+    },
+    "compliance_reporting_score": {
+      "agricultural_runoff": 0.4533467741935484,
+      "cross_cutting": 0.45469314079422385,
+      "floods": 0.45431528662420384,
+      "groundwater": 0.4610825688073395,
+      "utilities": 0.4463602941176471,
+      "water_quality": 0.4411378848728247,
+      "wfd_metrics": 0.4523804971319312
+    },
+    "cross_border_score": {
+      "agricultural_runoff": 0.4755577956989247,
+      "cross_cutting": 0.45553249097472925,
+      "floods": 0.4665485668789809,
+      "groundwater": 0.4743211009174312,
+      "utilities": 0.46498774509803925,
+      "water_quality": 0.45775769745649264,
+      "wfd_metrics": 0.46583652007648185
+    }
+  },
+  "sensitivity_analysis": [
+    {
+      "task": "early_warning",
+      "primary_metric": "temporal_recency",
+      "baseline_mean": 0.4401085714285714,
+      "low_mean": 0.4475596190476191,
+      "high_mean": 0.4335341176470588,
+      "baseline_ready_pct": 3.8,
+      "low_ready_pct": 4.085714285714285,
+      "high_ready_pct": 3.6,
+      "range_pp": -0.4857142857142857
+    },
+    {
+      "task": "compliance_reporting",
+      "primary_metric": "temporal_coverage",
+      "baseline_mean": 0.4512671428571428,
+      "low_mean": 0.4454830476190476,
+      "high_mean": 0.456370756302521,
+      "baseline_ready_pct": 5.457142857142857,
+      "low_ready_pct": 4.114285714285714,
+      "high_ready_pct": 6.742857142857144,
+      "range_pp": 2.62857142857143
+    },
+    {
+      "task": "cross_border",
+      "primary_metric": "vocabulary_standard",
+      "baseline_mean": 0.4656800000000001,
+      "low_mean": 0.4670872380952381,
+      "high_mean": 0.4644383193277311,
+      "baseline_ready_pct": 9.885714285714284,
+      "low_ready_pct": 9.685714285714289,
+      "high_ready_pct": 10.771428571428572,
+      "range_pp": 1.0857142857142854
+    }
+  ],
+  "completeness_rates": {
+    "has_description": 0.7014285714285714,
+    "has_temporal": 0.7494285714285714,
+    "has_coordinates": 0.3477142857142857,
+    "has_open_license": 0.5651428571428572,
+    "has_eurovoc": 0.304,
+    "has_multilingual": 0.2777142857142857
+  },
+  "validation": {
+    "total_datasets": 25,
+    "working_urls": 13,
+    "broken_urls": 12,
+    "url_accessibility_rate": 0.52,
+    "overall_agreement_all": 0.32,
+    "overall_agreement_working_only": 0.6154,
+    "by_category_all": {
+      "description": {
+        "yes": 12,
+        "no": 13,
+        "partial": 0,
+        "total": 25,
+        "agreement_rate": 0.48
+      },
+      "temporal": {
+        "yes": 10,
+        "no": 13,
+        "partial": 2,
+        "total": 25,
+        "agreement_rate": 0.44
+      },
+      "format": {
+        "yes": 5,
+        "no": 12,
+        "partial": 8,
+        "total": 25,
+        "agreement_rate": 0.36
+      },
+      "license": {
+        "yes": 0,
+        "no": 25,
+        "partial": 0,
+        "total": 25,
+        "agreement_rate": 0.0
+      }
+    },
+    "by_category_working": {
+      "description": {
+        "yes": 12,
+        "no": 1,
+        "partial": 0,
+        "total": 13,
+        "agreement_rate": 0.9231
+      },
+      "temporal": {
+        "yes": 10,
+        "no": 1,
+        "partial": 2,
+        "total": 13,
+        "agreement_rate": 0.8462
+      },
+      "format": {
+        "yes": 5,
+        "no": 0,
+        "partial": 8,
+        "total": 13,
+        "agreement_rate": 0.6923
+      },
+      "license": {
+        "yes": 0,
+        "no": 13,
+        "partial": 0,
+        "total": 13,
+        "agreement_rate": 0.0
+      }
+    },
+    "by_domain": {
+      "Floods": {
+        "total_datasets": 5,
+        "working_urls": 1,
+        "broken_urls": 4,
+        "url_accessibility_rate": 0.2,
+        "overall_agreement_working": 0.75
+      },
+      "Water Quality": {
+        "total_datasets": 5,
+        "working_urls": 3,
+        "broken_urls": 2,
+        "url_accessibility_rate": 0.6,
+        "overall_agreement_working": 0.75
+      },
+      "WFD Metrics": {
+        "total_datasets": 5,
+        "working_urls": 3,
+        "broken_urls": 2,
+        "url_accessibility_rate": 0.6,
+        "overall_agreement_working": 0.625
+      },
+      "Groundwater": {
+        "total_datasets": 5,
+        "working_urls": 3,
+        "broken_urls": 2,
+        "url_accessibility_rate": 0.6,
+        "overall_agreement_working": 0.4583
+      },
+      "Utilities": {
+        "total_datasets": 5,
+        "working_urls": 3,
+        "broken_urls": 2,
+        "url_accessibility_rate": 0.6,
+        "overall_agreement_working": 0.5833
+      }
+    }
+  }
+}

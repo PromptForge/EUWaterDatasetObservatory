@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensitivity Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2e75b6; }
+        .interpretation { background: #f0f0f0; padding: 15px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Sensitivity Analysis: Weight Perturbation (±25%)</h1>
+    <div id="chart"></div>
+    <div class="interpretation">
+        <h3>Interpretation</h3>
+        <p>This chart shows how the percentage of "Ready" datasets changes when the primary 
+        weight for each task is perturbed by ±25%. Small ranges indicate robust conclusions.</p>
+    </div>
+    <script>
+        var tasks = ["early_warning", "compliance_reporting", "cross_border"];
+        var baseline = [3.8, 5.457142857142857, 9.885714285714284];
+        var low = [4.085714285714285, 4.114285714285714, 9.685714285714289];
+        var high = [3.6, 6.742857142857144, 10.771428571428572];
+        
+        var trace1 = {
+            x: tasks,
+            y: baseline,
+            name: 'Baseline',
+            type: 'bar',
+            marker: {color: '#3498db'}
+        };
+        
+        var trace2 = {
+            x: tasks,
+            y: low,
+            name: '-25% Primary Weight',
+            type: 'bar',
+            marker: {color: '#e74c3c'}
+        };
+        
+        var trace3 = {
+            x: tasks,
+            y: high,
+            name: '+25% Primary Weight',
+            type: 'bar',
+            marker: {color: '#2ecc71'}
+        };
+        
+        var layout = {
+            title: 'Ready Dataset Percentage Under Weight Perturbation',
+            yaxis: {title: 'Percentage Ready (%)'},
+            barmode: 'group'
+        };
+        
+        Plotly.newPlot('chart', [trace1, trace2, trace3], layout);
+    </script>
+</body>
+</html>

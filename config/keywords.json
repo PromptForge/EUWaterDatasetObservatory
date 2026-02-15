@@ -1,0 +1,37 @@
+{
+  "floods": {
+    "en": ["flood", "flood hazard", "inundation", "return period", "flood risk", "flash flood", "river flood", "coastal flood"],
+    "de": ["Hochwasser", "Überschwemmung", "Hochwasserrisiko", "Sturzflut"],
+    "fr": ["inondation", "crue", "risque d'inondation", "zone inondable"],
+    "es": ["inundación", "riesgo de inundación", "avenida", "crecida"],
+    "it": ["alluvione", "inondazione", "rischio alluvione", "piena"]
+  },
+  "water_quality": {
+    "en": ["water quality", "surface water", "chemical status", "biological quality", "bathing water", "drinking water"],
+    "de": ["Wasserqualität", "Oberflächenwasser", "Gewässergüte", "Badegewässer"],
+    "fr": ["qualité de l'eau", "eau de surface", "eau de baignade", "état chimique"],
+    "es": ["calidad del agua", "agua superficial", "agua de baño", "estado químico"],
+    "it": ["qualità dell'acqua", "acque superficiali", "acque di balneazione", "stato chimico"]
+  },
+  "groundwater": {
+    "en": ["groundwater", "aquifer", "groundwater level", "groundwater body", "hydrogeology", "quantitative status"],
+    "de": ["Grundwasser", "Aquifer", "Grundwasserkörper", "Grundwasserstand"],
+    "fr": ["eau souterraine", "aquifère", "nappe phréatique", "niveau piézométrique"],
+    "es": ["agua subterránea", "acuífero", "nivel freático", "masa de agua subterránea"],
+    "it": ["acque sotterranee", "acquifero", "falda acquifera", "livello piezometrico"]
+  },
+  "wfd_metrics": {
+    "en": ["ecological status", "WFD", "Water Framework Directive", "river basin management", "RBMP", "programme of measures", "water body status", "pressures and impacts"],
+    "de": ["ökologischer Zustand", "Wasserrahmenrichtlinie", "WRRL", "Bewirtschaftungsplan", "Maßnahmenprogramm"],
+    "fr": ["état écologique", "DCE", "directive cadre sur l'eau", "plan de gestion", "programme de mesures"],
+    "es": ["estado ecológico", "DMA", "Directiva Marco del Agua", "plan hidrológico", "programa de medidas"],
+    "it": ["stato ecologico", "direttiva quadro acque", "piano di gestione", "programma di misure"]
+  },
+  "utilities": {
+    "en": ["water supply", "wastewater", "drinking water", "water treatment", "sewage", "water utility", "water services", "UWWTD"],
+    "de": ["Wasserversorgung", "Abwasser", "Trinkwasser", "Kläranlage", "Wasserwirtschaft"],
+    "fr": ["approvisionnement en eau", "eaux usées", "eau potable", "assainissement", "station d'épuration"],
+    "es": ["abastecimiento de agua", "aguas residuales", "agua potable", "depuradora", "saneamiento"],
+    "it": ["approvvigionamento idrico", "acque reflue", "acqua potabile", "depurazione", "fognatura"]
+  }
+}

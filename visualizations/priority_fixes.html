@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Priority Metadata Fixes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2e75b6; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #2e75b6; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .high-priority { background-color: #ffcccc; }
+    </style>
+</head>
+<body>
+    <h1>Top 20 Priority Metadata Fixes (Early Warning Task)</h1>
+    <p>Datasets ranked by Priority = Impact × (1 - Sufficiency)</p>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Dataset</th>
+            <th>Domain</th>
+            <th>Country</th>
+            <th>Impact</th>
+            <th>Sufficiency</th>
+            <th>Priority</th>
+            <th>Suggested Fix</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Pesticide Monitoring - AT...</td>
+            <td>agricultural_runoff</td>
+            <td>AT</td>
+            <td>0.76</td>
+            <td>0.12</td>
+            <td>0.673</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Agricultural Pollution - ES...</td>
+            <td>agricultural_runoff</td>
+            <td>ES</td>
+            <td>0.88</td>
+            <td>0.24</td>
+            <td>0.671</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Surface Water Chemistry - PL...</td>
+            <td>water_quality</td>
+            <td>PL</td>
+            <td>0.82</td>
+            <td>0.19</td>
+            <td>0.666</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Flood Risk Assessment - DE...</td>
+            <td>floods</td>
+            <td>DE</td>
+            <td>0.73</td>
+            <td>0.10</td>
+            <td>0.653</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Groundwater Level Measurements - DE...</td>
+            <td>groundwater</td>
+            <td>DE</td>
+            <td>0.87</td>
+            <td>0.25</td>
+            <td>0.650</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Groundwater Level Measurements - PL...</td>
+            <td>groundwater</td>
+            <td>PL</td>
+            <td>0.90</td>
+            <td>0.28</td>
+            <td>0.644</td>
+            <td>Add update frequency metadata</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Drinking Water Quality - BG...</td>
+            <td>utilities</td>
+            <td>BG</td>
+            <td>0.85</td>
+            <td>0.26</td>
+            <td>0.633</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Water Quality Monitoring Data - AT...</td>
+            <td>water_quality</td>
+            <td>AT</td>
+            <td>0.73</td>
+            <td>0.14</td>
+            <td>0.631</td>
+            <td>Add update frequency metadata</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Water Quality Monitoring Data - DE...</td>
+            <td>water_quality</td>
+            <td>DE</td>
+            <td>0.85</td>
+            <td>0.26</td>
+            <td>0.631</td>
+            <td>Add update frequency metadata</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Pesticide Monitoring - PL...</td>
+            <td>agricultural_runoff</td>
+            <td>PL</td>
+            <td>0.85</td>
+            <td>0.26</td>
+            <td>0.629</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Water Quality Monitoring Data - IT...</td>
+            <td>water_quality</td>
+            <td>IT</td>
+            <td>0.87</td>
+            <td>0.28</td>
+            <td>0.629</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Agricultural Pollution - IE...</td>
+            <td>agricultural_runoff</td>
+            <td>IE</td>
+            <td>0.88</td>
+            <td>0.29</td>
+            <td>0.627</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Flood Risk Assessment - PL...</td>
+            <td>floods</td>
+            <td>PL</td>
+            <td>0.96</td>
+            <td>0.35</td>
+            <td>0.624</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Agricultural Pollution - ES...</td>
+            <td>agricultural_runoff</td>
+            <td>ES</td>
+            <td>0.88</td>
+            <td>0.29</td>
+            <td>0.623</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>European Nitrate Concentrations...</td>
+            <td>agricultural_runoff</td>
+            <td>EU</td>
+            <td>0.81</td>
+            <td>0.23</td>
+            <td>0.620</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>European Pesticide Monitoring...</td>
+            <td>agricultural_runoff</td>
+            <td>EU</td>
+            <td>0.81</td>
+            <td>0.24</td>
+            <td>0.616</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Water Quality Monitoring Data - LT...</td>
+            <td>water_quality</td>
+            <td>LT</td>
+            <td>0.78</td>
+            <td>0.21</td>
+            <td>0.614</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Water Quality Monitoring Data - IT...</td>
+            <td>water_quality</td>
+            <td>IT</td>
+            <td>0.82</td>
+            <td>0.26</td>
+            <td>0.611</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Integrated Water Resources - BE...</td>
+            <td>cross_cutting</td>
+            <td>BE</td>
+            <td>0.83</td>
+            <td>0.27</td>
+            <td>0.610</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Water Quality Monitoring Data - IT...</td>
+            <td>water_quality</td>
+            <td>IT</td>
+            <td>0.76</td>
+            <td>0.20</td>
+            <td>0.608</td>
+            <td>Add spatial coordinates/bbox</td>
+        </tr>
+    </table>
+</body>
+</html>

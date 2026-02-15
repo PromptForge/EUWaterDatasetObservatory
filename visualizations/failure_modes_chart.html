@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metadata Failure Modes</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2e75b6; }
+    </style>
+</head>
+<body>
+    <h1>EU Water Dataset Observatory: Metadata Failure Modes</h1>
+    <div id="chart"></div>
+    <script>
+        var data = [{
+            x: [10.285714285714285, 16.54285714285714, 65.22857142857143, 100.0, 25.057142857142857, 69.6, 43.48571428571428, 72.22857142857143],
+            y: ["Missing update frequency", "No machine-readable format", "No spatial coordinates", "Description < 50 words", "No temporal coverage", "No EuroVoc keywords", "No open license", "Single language only"],
+            type: 'bar',
+            orientation: 'h',
+            marker: {color: '#c0392b'}
+        }];
+        
+        var layout = {
+            title: 'Percentage of Datasets with Each Metadata Gap',
+            xaxis: {title: 'Percentage of Datasets (%)'},
+            yaxis: {autorange: 'reversed'},
+            margin: {l: 200}
+        };
+        
+        Plotly.newPlot('chart', data, layout);
+    </script>
+</body>
+</html>

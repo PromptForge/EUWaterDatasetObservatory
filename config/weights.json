@@ -1,0 +1,29 @@
+{
+  "early_warning": {
+    "temporal_recency": 0.25,
+    "update_frequency": 0.20,
+    "spatial_precision": 0.20,
+    "format_readability": 0.15,
+    "license_openness": 0.10,
+    "description_quality": 0.05,
+    "vocabulary_standard": 0.05
+  },
+  "compliance_reporting": {
+    "temporal_coverage": 0.25,
+    "description_quality": 0.20,
+    "spatial_aggregation": 0.15,
+    "vocabulary_standard": 0.15,
+    "format_readability": 0.10,
+    "license_openness": 0.10,
+    "temporal_recency": 0.05
+  },
+  "cross_border": {
+    "vocabulary_standard": 0.25,
+    "multilingual": 0.20,
+    "spatial_coverage": 0.20,
+    "format_readability": 0.15,
+    "description_quality": 0.10,
+    "license_openness": 0.05,
+    "temporal_recency": 0.05
+  }
+}
