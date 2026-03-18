@@ -1,0 +1,21 @@
+{
+  "harvest_timestamp": "2026-03-18T12:51:23.961208",
+  "total_records": 2176,
+  "unique_datasets": 2176,
+  "domains": {
+    "floods": 1477,
+    "groundwater": 699
+  },
+  "countries": {
+    "unknown": 2157,
+    "eu": 14,
+    "france": 2,
+    "netherlands": 2,
+    "poland": 1
+  },
+  "has_license_pct": 0.04595588235294117,
+  "is_open_license_pct": 0.04595588235294117,
+  "has_coordinates_pct": 77.25183823529412,
+  "has_temporal_pct": 53.07904411764706,
+  "is_multilingual_pct": 0.5514705882352942
+}

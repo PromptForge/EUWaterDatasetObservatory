@@ -1,0 +1,74 @@
+{
+  "analysis_timestamp": "2026-03-18T12:52:36.423539",
+  "data_source": "data.europa.eu SPARQL harvest",
+  "total_records": 2176,
+  "unique_datasets": 2176,
+  "sufficiency_scores": {
+    "early_warning": {
+      "mean": 0.20159007352941175,
+      "std": 0.09774656026658285,
+      "median": 0.225,
+      "ready_pct": 0.0,
+      "partial_pct": 3.6305147058823533,
+      "insufficient_pct": 96.36948529411765
+    },
+    "compliance": {
+      "mean": 0.15485064338235294,
+      "std": 0.057407502649962486,
+      "median": 0.16999999999999998,
+      "ready_pct": 0.0,
+      "partial_pct": 0.0,
+      "insufficient_pct": 100.0
+    },
+    "cross_border": {
+      "mean": 0.2406295955882353,
+      "std": 0.04827715698875439,
+      "median": 0.265,
+      "ready_pct": 0.0,
+      "partial_pct": 0.5055147058823529,
+      "insufficient_pct": 99.49448529411765
+    }
+  },
+  "metadata_completeness": {
+    "has_license": 0.04595588235294117,
+    "has_coordinates": 77.25183823529412,
+    "has_temporal": 53.07904411764706,
+    "is_machine_readable": 0.0,
+    "has_eurovoc": 0.6433823529411764,
+    "is_multilingual": 0.5514705882352942
+  },
+  "domain_distribution": {
+    "floods": 1477,
+    "groundwater": 699
+  },
+  "country_distribution": {
+    "unknown": 2157,
+    "eu": 14,
+    "france": 2,
+    "netherlands": 2,
+    "poland": 1
+  },
+  "sensitivity": {
+    "early_warning": {
+      "primary_metric": "temporal_recency",
+      "baseline_mean": 0.20159007352941175,
+      "range_pp": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0
+    },
+    "compliance_reporting": {
+      "primary_metric": "temporal_coverage",
+      "baseline_mean": 0.15485064338235294,
+      "range_pp": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0
+    },
+    "cross_border": {
+      "primary_metric": "vocabulary_standard",
+      "baseline_mean": 0.2406295955882353,
+      "range_pp": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0
+    }
+  }
+}

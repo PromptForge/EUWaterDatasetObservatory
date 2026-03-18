@@ -1,0 +1,4 @@
+task,primary_metric,baseline_mean,low_mean,high_mean,baseline_ready_pct,low_ready_pct,high_ready_pct,range_pp
+early_warning,temporal_recency,0.20159007352941175,0.20898161764705883,0.19506812283737024,0.0,0.0,0.0,0.0
+compliance_reporting,temporal_coverage,0.15485064338235294,0.16517401960784314,0.14574178200692042,0.0,0.0,0.0,0.0
+cross_border,vocabulary_standard,0.2406295955882353,0.2313468137254902,0.24882028546712806,0.0,0.0,0.0,0.0
