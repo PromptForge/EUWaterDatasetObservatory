@@ -1,62 +1,62 @@
 #!/usr/bin/env python3
 """
 EU Water Dataset Observatory - Full Analysis Pipeline
-
-Run this script to execute the complete analysis:
-1. Simulate 3,500 metadata records
-2. Compute task-specific sufficiency scores
-3. Run sensitivity analysis
-4. Compute impact and priority scores
-5. Generate all visualizations
+Runs SPARQL harvest and scoring on real EU water datasets.
 """
 
+import subprocess
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+ROOT = Path(__file__).parent
+SRC = ROOT / "src"
+
+def run_step(name: str, script: str, *args):
+    """Run a pipeline step and exit on failure."""
+    print(f"\n{'='*60}")
+    print(f"STEP: {name}")
+    print(f"{'='*60}")
+    
+    cmd = [sys.executable, str(SRC / script)] + list(args)
+    result = subprocess.run(cmd, cwd=str(ROOT))
+    
+    if result.returncode != 0:
+        print(f"ERROR: {name} failed with code {result.returncode}")
+        sys.exit(result.returncode)
+    
+    print(f"✓ {name} completed successfully")
 
 def main():
-    print("=" * 60)
-    print("EU WATER DATASET OBSERVATORY - FULL ANALYSIS")
-    print("=" * 60)
+    print("EU Water Dataset Observatory - Full Analysis Pipeline")
+    print("="*60)
     
-    # Step 1: Simulate records
-    print("\n[1/5] Simulating metadata records...")
-    from simulate_records import main as simulate
-    simulate()
+    # Step 1: Harvest data from data.europa.eu (skip if already done)
+    harvest_output = ROOT / "data" / "harvested" / "raw_harvest.csv"
+    if harvest_output.exists():
+        print(f"\n✓ Harvest data already exists: {harvest_output}")
+        print("  (Delete this file to re-run harvest)")
+    else:
+        run_step("SPARQL Harvest", "harvest_sparql.py")
     
-    # Step 2: Compute sufficiency scores
-    print("\n[2/5] Computing sufficiency scores...")
-    from sufficiency_scoring import main as score
-    score()
+    # Step 2: Score real data
+    run_step("Score Real Data", "score_real_data.py")
     
-    # Step 3: Sensitivity analysis
-    print("\n[3/5] Running sensitivity analysis...")
-    from sensitivity_analysis import main as sensitivity
-    sensitivity()
+    # Step 3: Generate visualizations (optional)
+    viz_script = ROOT / "visualizations" / "create_visualizations.py"
+    if viz_script.exists():
+        print(f"\n{'='*60}")
+        print(f"STEP: Create Visualizations")
+        print(f"{'='*60}")
+        result = subprocess.run([sys.executable, str(viz_script)], cwd=str(ROOT))
+        if result.returncode != 0:
+            print(f"ERROR: Create Visualizations failed with code {result.returncode}")
+            sys.exit(result.returncode)
+        print(f"✓ Create Visualizations completed successfully")
     
-    # Step 4: Impact and priority scores
-    print("\n[4/5] Computing impact and priority scores...")
-    from impact_proxy import main as impact
-    impact()
-    
-    # Step 5: Generate visualizations
-    print("\n[5/5] Generating visualizations...")
-    sys.path.insert(0, str(Path(__file__).parent / "visualizations"))
-    from create_visualizations import main as visualize
-    visualize()
-    
-    print("\n" + "=" * 60)
-    print("ANALYSIS COMPLETE")
-    print("=" * 60)
-    print("\nOutputs available in:")
-    print("  - data/simulated/metadata_records.csv (3,500 records)")
-    print("  - data/outputs/sufficiency_scores.csv")
-    print("  - data/outputs/sensitivity_summary.csv")
-    print("  - data/outputs/priority_scores.csv")
-    print("  - data/outputs/analysis_summary.json")
-    print("  - visualizations/*.html")
+    print("\n" + "="*60)
+    print("PIPELINE COMPLETE")
+    print("="*60)
+    print(f"\nOutputs available in: {ROOT / 'data' / 'outputs_real'}")
 
 if __name__ == "__main__":
     main()

@@ -12,11 +12,11 @@
     <h1>Mean Sufficiency Scores by Water Domain</h1>
     <div id="chart"></div>
     <script>
-        var domains = ["agricultural_runoff", "cross_cutting", "floods", "groundwater", "utilities", "water_quality", "wfd_metrics"];
+        var domains = ["floods", "groundwater"];
         
         var trace1 = {
             x: domains,
-            y: [0.4405577956989248, 0.4324458483754513, 0.4380055732484076, 0.44985321100917436, 0.4288970588235294, 0.43668005354752343, 0.44986137667304016],
+            y: [0.1974069058903182, 0.21042918454935622],
             name: 'Early Warning',
             type: 'bar',
             marker: {color: '#e74c3c'}
@@ -24,7 +24,7 @@
         
         var trace2 = {
             x: domains,
-            y: [0.4533467741935484, 0.45469314079422385, 0.45431528662420384, 0.4610825688073395, 0.4463602941176471, 0.4411378848728247, 0.4523804971319312],
+            y: [0.15049763033175353, 0.1640486409155937],
             name: 'Compliance Reporting',
             type: 'bar',
             marker: {color: '#2ecc71'}
@@ -32,7 +32,7 @@
         
         var trace3 = {
             x: domains,
-            y: [0.4755577956989247, 0.45553249097472925, 0.4665485668789809, 0.4743211009174312, 0.46498774509803925, 0.45775769745649264, 0.46583652007648185],
+            y: [0.23104942450914015, 0.2608726752503576],
             name: 'Cross-Border',
             type: 'bar',
             marker: {color: '#3498db'}

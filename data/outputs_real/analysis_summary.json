@@ -1,0 +1,100 @@
+{
+  "metadata": {
+    "generated": "2026-03-18T17:07:05.951252",
+    "total_records": 2176,
+    "domains": [
+      "floods",
+      "groundwater"
+    ],
+    "countries": [
+      "unknown",
+      "eu",
+      "france",
+      "poland",
+      "netherlands"
+    ]
+  },
+  "overall_statistics": {
+    "early_warning": {
+      "mean": 0.20159007352941175,
+      "median": 0.225,
+      "std": 0.09774656026658285,
+      "ready_pct": 0.0,
+      "partial_pct": 3.6305147058823533,
+      "insufficient_pct": 96.36948529411765
+    },
+    "compliance_reporting": {
+      "mean": 0.1548506433823529,
+      "median": 0.1699999999999999,
+      "std": 0.05740750264996248,
+      "ready_pct": 0.0,
+      "partial_pct": 0.0,
+      "insufficient_pct": 100.0
+    },
+    "cross_border": {
+      "mean": 0.2406295955882353,
+      "median": 0.265,
+      "std": 0.04827715698875439,
+      "ready_pct": 0.0,
+      "partial_pct": 0.5055147058823529,
+      "insufficient_pct": 99.49448529411765
+    }
+  },
+  "domain_statistics": {
+    "early_warning_score": {
+      "floods": 0.1974069058903182,
+      "groundwater": 0.21042918454935622
+    },
+    "compliance_reporting_score": {
+      "floods": 0.15049763033175353,
+      "groundwater": 0.1640486409155937
+    },
+    "cross_border_score": {
+      "floods": 0.23104942450914015,
+      "groundwater": 0.2608726752503576
+    }
+  },
+  "sensitivity_analysis": [
+    {
+      "task": "early_warning",
+      "primary_metric": "temporal_recency",
+      "baseline_mean": 0.2015900735294117,
+      "low_mean": 0.2089816176470588,
+      "high_mean": 0.1950681228373702,
+      "baseline_ready_pct": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0,
+      "range_pp": 0.0
+    },
+    {
+      "task": "compliance_reporting",
+      "primary_metric": "temporal_coverage",
+      "baseline_mean": 0.1548506433823529,
+      "low_mean": 0.1651740196078431,
+      "high_mean": 0.1457417820069204,
+      "baseline_ready_pct": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0,
+      "range_pp": 0.0
+    },
+    {
+      "task": "cross_border",
+      "primary_metric": "vocabulary_standard",
+      "baseline_mean": 0.2406295955882353,
+      "low_mean": 0.2313468137254902,
+      "high_mean": 0.248820285467128,
+      "baseline_ready_pct": 0.0,
+      "low_ready_pct": 0.0,
+      "high_ready_pct": 0.0,
+      "range_pp": 0.0
+    }
+  ],
+  "completeness_rates": {
+    "has_description": 0.0,
+    "has_temporal": 0.0,
+    "has_coordinates": 0.7725183823529411,
+    "has_open_license": 0.00045955882352941176,
+    "has_eurovoc": 0.006433823529411764,
+    "has_multilingual": 0.0055147058823529415
+  }
+}

@@ -383,7 +383,7 @@ def create_analysis_summary_json(df, sensitivity_df):
         }
     }
     
-    output_path = Path(__file__).parent.parent / "data" / "outputs" / "analysis_summary.json"
+    output_path = Path(__file__).parent.parent / "data" / "outputs_real" / "analysis_summary.json"
     with open(output_path, "w") as f:
         json.dump(summary, f, indent=2)
     print(f"Created {output_path}")
@@ -392,7 +392,7 @@ def create_analysis_summary_json(df, sensitivity_df):
 
 def main():
     # Load data
-    data_dir = Path(__file__).parent.parent / "data" / "outputs"
+    data_dir = Path(__file__).parent.parent / "data" / "outputs_real"
     
     df = pd.read_csv(data_dir / "priority_scores.csv")
     sensitivity_df = pd.read_csv(data_dir / "sensitivity_summary.csv")

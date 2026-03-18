@@ -162,7 +162,7 @@ def analyze_validation_data():
     }
     
     # Save to JSON
-    output_path = Path('data/outputs/validation_results.json')
+    output_path = Path('data/outputs_real/validation_results.json')
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(output_path, 'w') as f:
