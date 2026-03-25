@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number of Water Datasets by EU Country</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    body  { font-family: Arial, sans-serif; margin: 0; padding: 20px;
+             background: #f8f9fa; }
+    h1    { color: #2E75B6; text-align: center; }
+    #map  { width: 100%; height: 680px; }
+    footer{ text-align: center; color: #888; font-size: 0.8em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Number of Water Datasets by EU Country</h1>
+  <div id="map"></div>
+  <footer>Darker blue = more water datasets harvested from EU open data portals</footer>
+
+  <script>
+    var data = [{
+      type: 'choropleth',
+      locationmode: 'ISO-3',
+      locations: ["AUT", "BEL", "BGR", "CZE", "DEU", "DNK", "EST", "ESP", "FIN", "FRA", "HRV", "IRL", "ITA", "LVA", "MLT", "NLD", "POL", "PRT", "SWE", "SVN"],
+      z: [35, 69, 1, 6, 275, 19, 1, 53, 3, 638, 1, 77, 75, 3, 1, 159, 5, 1, 5, 3],
+      text: ["Austria", "Belgium", "Bulgaria", "Czechia", "Germany", "Denmark", "Estonia", "Spain", "Finland", "France", "Croatia", "Ireland", "Italy", "Latvia", "Malta", "Netherlands", "Poland", "Portugal", "Sweden", "Slovenia"],
+      colorscale: 'Blues',
+      reversescale: false,
+      marker: {
+        line: { color: 'rgb(150,150,150)', width: 0.8 }
+      },
+      colorbar: {
+        title: 'Number of<br>Datasets',
+        thickness: 18,
+        len: 0.6
+      },
+      hovertemplate: '<b>%{text}</b><br>Datasets: %{z}<extra></extra>'
+    }];
+
+    var layout = {
+      geo: {
+        scope: 'europe',
+        resolution: 50,
+        showframe: false,
+        showcoastlines: true,
+        coastlinecolor: 'rgb(150,150,150)',
+        showland: true,
+        landcolor: 'rgb(240,240,240)',
+        showocean: true,
+        oceancolor: 'rgb(220,240,255)',
+        lonaxis: { range: [-14, 36] },
+        lataxis: { range: [33, 72] }
+      },
+      margin: { t: 10, b: 10, l: 10, r: 10 }
+    };
+
+    Plotly.newPlot('map', data, layout, {responsive: true, displayModeBar: true});
+  </script>
+</body>
+</html>

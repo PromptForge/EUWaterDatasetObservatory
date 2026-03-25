@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Quality by Dimension: Top vs Bottom Countries</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #2E75B6;
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .note {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .legend-note {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 5px;
+            font-size: 0.85em;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dot-top { width: 12px; height: 12px; background: #28a745; border-radius: 50%; }
+        .dot-bottom { width: 12px; height: 12px; background: #dc3545; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <h1>Metadata Quality by Dimension: Top 4 vs Bottom 4 Countries</h1>
+    <div class="subtitle">
+        Sufficiency scores per use-case task, comparing highest and lowest performing countries
+    </div>
+
+    <div id="chart" style="width:100%; height:580px;"></div>
+
+    <div class="note">
+        <div class="legend-note">
+            <div class="legend-item"><div class="dot-top"></div> Top 4 countries (left of dashed line)</div>
+            <div class="legend-item"><div class="dot-bottom"></div> Bottom 4 countries (right of dashed line)</div>
+        </div>
+        Countries with &lt;10 datasets excluded for statistical reliability.<br>
+        Dataset counts: IE: 77 datasets | DE: 275 datasets | BE: 69 datasets | DK: 19 datasets | NL: 159 datasets | AT: 35 datasets | ES: 53 datasets | FR: 638 datasets
+    </div>
+
+    <script>
+        var data = [{
+            name: 'Early Warning',
+            x: ["IE", "DE", "BE", "DK", "NL", "AT", "ES", "FR"],
+            y: [0.3279, 0.2628, 0.2554, 0.225, 0.083, 0.1317, 0.2059, 0.2238],
+            type: 'bar',
+            marker: {
+                color: '#2E86AB',
+                opacity: 0.85
+            },
+            text: ["0.328", "0.263", "0.255", "0.225", "0.083", "0.132", "0.206", "0.224"],
+            textposition: 'outside',
+            textfont: { size: 10 }
+        },{
+            name: 'Compliance',
+            x: ["IE", "DE", "BE", "DK", "NL", "AT", "ES", "FR"],
+            y: [0.2044, 0.1939, 0.197, 0.195, 0.0935, 0.137, 0.1641, 0.1688],
+            type: 'bar',
+            marker: {
+                color: '#A23B72',
+                opacity: 0.85
+            },
+            text: ["0.204", "0.194", "0.197", "0.195", "0.093", "0.137", "0.164", "0.169"],
+            textposition: 'outside',
+            textfont: { size: 10 }
+        },{
+            name: 'Cross-Border',
+            x: ["IE", "DE", "BE", "DK", "NL", "AT", "ES", "FR"],
+            y: [0.2871, 0.2677, 0.2641, 0.265, 0.2361, 0.2686, 0.2482, 0.2285],
+            type: 'bar',
+            marker: {
+                color: '#F18F01',
+                opacity: 0.85
+            },
+            text: ["0.287", "0.268", "0.264", "0.265", "0.236", "0.269", "0.248", "0.229"],
+            textposition: 'outside',
+            textfont: { size: 10 }
+        },{
+        name: 'Composite Mean',
+        x: ["IE", "DE", "BE", "DK", "NL", "AT", "ES", "FR"],
+        y: [0.2732, 0.2415, 0.2389, 0.2283, 0.1375, 0.1791, 0.2061, 0.207],
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#333333', width: 2, dash: 'dot' },
+        marker: { size: 8, color: '#333333' },
+        yaxis: 'y'
+    }];
+
+        var layout = {
+            barmode: 'group',
+            xaxis: {
+                title: { text: 'Country Code', font: { size: 13 } },
+                tickangle: -30,
+                tickfont: { size: 13, color: '#333' }
+            },
+            yaxis: {
+                title: { text: 'Mean Sufficiency Score', font: { size: 13 } },
+                range: [0, 0.369],
+                tickformat: '.3f'
+            },
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: 1.08
+            },
+            shapes: [{
+                type: 'line',
+                x0: 3.5,
+                x1: 3.5,
+                y0: 0,
+                y1: 0.369,
+                line: {
+                    color: '#888',
+                    width: 2,
+                    dash: 'dash'
+                }
+            }],
+            annotations: [
+                {
+                    x: 1.5,
+                    y: 0.358,
+                    text: '▲ TOP 4',
+                    showarrow: false,
+                    font: { size: 13, color: '#28a745', weight: 'bold' }
+                },
+                {
+                    x: 5.5,
+                    y: 0.358,
+                    text: '▼ BOTTOM 4',
+                    showarrow: false,
+                    font: { size: 13, color: '#dc3545', weight: 'bold' }
+                }
+            ],
+            margin: { t: 60, b: 100, l: 70, r: 30 },
+            plot_bgcolor: 'white',
+            paper_bgcolor: '#f9f9f9'
+        };
+
+        Plotly.newPlot('chart', data, layout, {responsive: true});
+    </script>
+</body>
+</html>

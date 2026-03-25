@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EU Water Data: Metadata Quality by Country</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    body   { font-family: Arial, sans-serif; margin: 0; padding: 20px;
+              background: #f8f9fa; }
+    h1     { color: #2E75B6; text-align: center; margin-bottom: 4px; }
+    p.sub  { text-align: center; color: #555; margin-top: 0; font-size: 0.9em; }
+    #map   { width: 100%; height: 680px; }
+    footer { text-align: center; color: #888; font-size: 0.8em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>EU Water Data: Metadata Quality by Country</h1>
+  <p class="sub">Composite score across early-warning, compliance and cross-border readiness</p>
+  <div id="map"></div>
+  <footer>
+    Color scale: 🔴 Low quality &nbsp;→&nbsp; 🟡 Medium &nbsp;→&nbsp; 🟢 High quality
+    &nbsp;|&nbsp; Based on EU water datasets from SPARQL harvesting
+  </footer>
+
+  <script>
+    var data = [{
+      type: 'choropleth',
+      locationmode: 'ISO-3',
+      locations: ["AUT", "BEL", "BGR", "CZE", "DEU", "DNK", "EST", "ESP", "FIN", "FRA", "HRV", "IRL", "ITA", "LVA", "MLT", "NLD", "POL", "PRT", "SWE", "SVN"],
+      z: [0.1791, 0.2389, 0.3033, 0.2083, 0.2415, 0.2283, 0.2283, 0.2061, 0.2278, 0.207, 0.2283, 0.2732, 0.2114, 0.2233, 0.3, 0.1375, 0.251, 0.3033, 0.19, 0.2517],
+      text: ["Austria", "Belgium", "Bulgaria", "Czechia", "Germany", "Denmark", "Estonia", "Spain", "Finland", "France", "Croatia", "Ireland", "Italy", "Latvia", "Malta", "Netherlands", "Poland", "Portugal", "Sweden", "Slovenia"],
+      customdata: [35, 69, 1, 6, 275, 19, 1, 53, 3, 638, 1, 77, 75, 3, 1, 159, 5, 1, 5, 3],
+      colorscale: [[0.0, "rgb(165,0,38)"], [0.1, "rgb(215,48,39)"], [0.2, "rgb(244,109,67)"], [0.3, "rgb(253,174,97)"], [0.4, "rgb(254,224,139)"], [0.5, "rgb(255,255,191)"], [0.6, "rgb(217,239,139)"], [0.7, "rgb(166,217,106)"], [0.8, "rgb(102,189,99)"], [0.9, "rgb(26,152,80)"], [1.0, "rgb(0,104,55)"]],
+      reversescale: false,
+      zmin: 0.1375,
+      zmax: 0.3033,
+      marker: {
+        line: { color: 'rgb(150,150,150)', width: 0.8 }
+      },
+      colorbar: {
+        title: 'Metadata\nQuality\nScore',
+        thickness: 18,
+        len: 0.6,
+        tickformat: '.2f'
+      },
+      hovertemplate: '<b>%{text}</b><br>Score: %{z:.3f}<br>Datasets: %{customdata}<extra></extra>'
+    }];
+
+    var layout = {
+      geo: {
+        scope: 'europe',
+        resolution: 50,
+        showframe: false,
+        showcoastlines: true,
+        coastlinecolor: 'rgb(150,150,150)',
+        showland: true,
+        landcolor: 'rgb(240,240,240)',
+        showocean: true,
+        oceancolor: 'rgb(220,240,255)',
+        showlakes: true,
+        lakecolor: 'rgb(220,240,255)',
+        showcountries: true,
+        countrycolor: 'rgb(180,180,180)',
+        lonaxis: { range: [-14, 36] },
+        lataxis: { range: [33, 72] }
+      },
+      margin: { t: 10, b: 10, l: 10, r: 10 }
+    };
+
+    Plotly.newPlot('map', data, layout, {responsive: true, displayModeBar: true});
+  </script>
+</body>
+</html>

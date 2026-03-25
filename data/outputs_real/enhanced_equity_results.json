@@ -1,0 +1,182 @@
+{
+  "vif": [
+    {
+      "Variable": "gdp_per_capita_pps",
+      "VIF": 14.7300225176331,
+      "Status": "Severe"
+    },
+    {
+      "Variable": "desi_score",
+      "VIF": Infinity,
+      "Status": "Severe"
+    },
+    {
+      "Variable": "open_data_maturity",
+      "VIF": Infinity,
+      "Status": "Severe"
+    },
+    {
+      "Variable": "water_exploitation_index",
+      "VIF": 2.9432641817368195,
+      "Status": "OK"
+    },
+    {
+      "Variable": "egovernment_usage_pct",
+      "VIF": 113.46324363446735,
+      "Status": "Severe"
+    },
+    {
+      "Variable": "data_infrastructure_score",
+      "VIF": Infinity,
+      "Status": "Severe"
+    }
+  ],
+  "ols": {
+    "composite_score_mean": {
+      "params": {
+        "const": 0.22390165741795748,
+        "water_exploitation_index": 0.0006214227494389007
+      },
+      "pvalues": {
+        "const": 4.991716145863371e-12,
+        "water_exploitation_index": 0.45353687410442944
+      },
+      "std_err": {
+        "const": 0.014107086096869493,
+        "water_exploitation_index": 0.000811132599875643
+      },
+      "r_squared": 0.03157786657093742,
+      "adj_r_squared": -0.022223363064010515,
+      "f_pvalue": 0.453536874104432,
+      "n_obs": 20
+    },
+    "early_warning_score_mean": {
+      "params": {
+        "const": 0.2311011794639286,
+        "water_exploitation_index": -8.905454379650878e-05
+      },
+      "pvalues": {
+        "const": 8.143007865063719e-11,
+        "water_exploitation_index": 0.9293125783340653
+      },
+      "std_err": {
+        "const": 0.017216814710540776,
+        "water_exploitation_index": 0.0009899365171406416
+      },
+      "r_squared": 0.00044939657383813447,
+      "adj_r_squared": -0.05508119250539312,
+      "f_pvalue": 0.9293125783340482,
+      "n_obs": 20
+    },
+    "compliance_reporting_score_mean": {
+      "params": {
+        "const": 0.1782798736222293,
+        "water_exploitation_index": 0.0007302005951079936
+      },
+      "pvalues": {
+        "const": 1.894830192601708e-10,
+        "water_exploitation_index": 0.3758272066973235
+      },
+      "std_err": {
+        "const": 0.013984834871631872,
+        "water_exploitation_index": 0.0008041033697792178
+      },
+      "r_squared": 0.043806049300286865,
+      "adj_r_squared": -0.009315836849697279,
+      "f_pvalue": 0.3758272066973246,
+      "n_obs": 20
+    },
+    "cross_border_score_mean": {
+      "params": {
+        "const": 0.26232391916771464,
+        "water_exploitation_index": 0.0012231221970052115
+      },
+      "pvalues": {
+        "const": 2.7159798472556654e-10,
+        "water_exploitation_index": 0.3253549438335055
+      },
+      "std_err": {
+        "const": 0.021038228220263546,
+        "water_exploitation_index": 0.0012096610622420701
+      },
+      "r_squared": 0.05374616022042822,
+      "adj_r_squared": 0.001176502454896422,
+      "f_pvalue": 0.3253549438335054,
+      "n_obs": 20
+    }
+  },
+  "weighted_ols": {
+    "composite_score_mean": {
+      "params": {
+        "const": 0.19457822502341762,
+        "water_exploitation_index": 0.0010268373616170155
+      },
+      "pvalues": {
+        "const": 7.94681458764349e-09,
+        "water_exploitation_index": 0.35835450085571097
+      },
+      "std_err": {
+        "const": 0.019310924420206883,
+        "water_exploitation_index": 0.0010893406747367205
+      },
+      "r_squared": 0.04704110836014086,
+      "adj_r_squared": -0.005901052286517938,
+      "f_pvalue": 0.35835450085571185,
+      "n_obs": 20
+    },
+    "early_warning_score_mean": {
+      "params": {
+        "const": 0.192672829307941,
+        "water_exploitation_index": 0.0017056918428578253
+      },
+      "pvalues": {
+        "const": 2.2003097898966233e-05,
+        "water_exploitation_index": 0.3847616555596114
+      },
+      "std_err": {
+        "const": 0.03394174873531248,
+        "water_exploitation_index": 0.0019146741328643973
+      },
+      "r_squared": 0.042228048753870984,
+      "adj_r_squared": -0.010981504093136252,
+      "f_pvalue": 0.3847616555596143,
+      "n_obs": 20
+    },
+    "compliance_reporting_score_mean": {
+      "params": {
+        "const": 0.14567655591431086,
+        "water_exploitation_index": 0.0014055404206013671
+      },
+      "pvalues": {
+        "const": 1.0839549551397926e-07,
+        "water_exploitation_index": 0.1648031156232516
+      },
+      "std_err": {
+        "const": 0.01720697781310042,
+        "water_exploitation_index": 0.0009706558015155745
+      },
+      "r_squared": 0.10433483819169209,
+      "adj_r_squared": 0.05457566253567492,
+      "f_pvalue": 0.1648031156232546,
+      "n_obs": 20
+    },
+    "cross_border_score_mean": {
+      "params": {
+        "const": 0.24538528984800115,
+        "water_exploitation_index": -3.072017860814881e-05
+      },
+      "pvalues": {
+        "const": 3.0583002595733396e-13,
+        "water_exploitation_index": 0.9673504967100025
+      },
+      "std_err": {
+        "const": 0.013120977506368647,
+        "water_exploitation_index": 0.0007401621061204396
+      },
+      "r_squared": 9.569289929634017e-05,
+      "adj_r_squared": -0.0554545463840761,
+      "f_pvalue": 0.9673504967101506,
+      "n_obs": 20
+    }
+  }
+}

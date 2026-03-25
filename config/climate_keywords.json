@@ -1,0 +1,50 @@
+{
+  "drought_early_warning": [
+    "drought",
+    "water scarcity",
+    "soil moisture",
+    "precipitation",
+    "streamflow",
+    "groundwater level",
+    "drought index",
+    "spi",
+    "spei",
+    "drought observatory",
+    "water deficit",
+    "aridity",
+    "low flow",
+    "drought monitor"
+  ],
+  "climate_infrastructure": [
+    "climate projection",
+    "climate scenario",
+    "climate change adaptation",
+    "sea level rise",
+    "climate model",
+    "cordex",
+    "cmip",
+    "rcp",
+    "ssp",
+    "climate impact",
+    "temperature projection",
+    "precipitation projection",
+    "climate risk",
+    "climate resilience"
+  ],
+  "nature_based_solutions": [
+    "nature-based solution",
+    "natural water retention",
+    "wetland restoration",
+    "green infrastructure",
+    "ecosystem-based",
+    "floodplain restoration",
+    "biodiversity water",
+    "ecological status",
+    "river restoration",
+    "nature restoration",
+    "natural flood management",
+    "rewilding",
+    "constructed wetland",
+    "riparian buffer"
+  ]
+}

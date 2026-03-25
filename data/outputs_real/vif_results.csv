@@ -1,0 +1,7 @@
+Variable,VIF,Status
+gdp_per_capita_pps,14.7300225176331,Severe
+desi_score,inf,Severe
+open_data_maturity,inf,Severe
+water_exploitation_index,2.9432641817368195,OK
+egovernment_usage_pct,113.46324363446735,Severe
+data_infrastructure_score,inf,Severe

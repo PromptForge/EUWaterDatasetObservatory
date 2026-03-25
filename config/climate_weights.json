@@ -1,0 +1,35 @@
+{
+  "drought_early_warning": {
+    "temporal_recency": 0.20,
+    "update_frequency": 0.05,
+    "temporal_coverage": 0.25,
+    "spatial_precision": 0.15,
+    "format_readability": 0.15,
+    "license_openness": 0.10,
+    "description_quality": 0.10,
+    "vocabulary_standard": 0.00,
+    "multilingual": 0.00
+  },
+  "climate_infrastructure": {
+    "temporal_recency": 0.05,
+    "update_frequency": 0.00,
+    "temporal_coverage": 0.20,
+    "spatial_precision": 0.15,
+    "format_readability": 0.15,
+    "license_openness": 0.10,
+    "description_quality": 0.25,
+    "vocabulary_standard": 0.10,
+    "multilingual": 0.00
+  },
+  "nbs_monitoring": {
+    "temporal_recency": 0.05,
+    "update_frequency": 0.00,
+    "temporal_coverage": 0.20,
+    "spatial_precision": 0.15,
+    "format_readability": 0.10,
+    "license_openness": 0.05,
+    "description_quality": 0.10,
+    "vocabulary_standard": 0.20,
+    "multilingual": 0.15
+  }
+}

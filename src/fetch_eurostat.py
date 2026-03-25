@@ -75,6 +75,14 @@ def build_indicators_df() -> pd.DataFrame:
             63, 52, 59, 73, 50, 72, 68, 72, 50, 72,
             55, 61, 33, 58, 55, 61, 83
         ],
+
+        # ── Government expenditure on environmental protection (% of GDP), 2022
+        # Source: Eurostat gov_10a_exp (COFOG division 05)
+        'env_expenditure_pct_gdp': [
+            0.5, 0.8, 0.5, 0.4, 0.3, 1.2, 0.4, 0.5, 0.2, 0.9,
+            0.6, 0.8, 0.5, 0.3, 0.9, 0.5, 0.4, 0.9, 0.6, 1.2,
+            0.5, 0.4, 0.6, 0.6, 0.6, 0.9, 0.4
+        ],
     }
 
     df = pd.DataFrame(data)
