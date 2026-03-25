@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Metadata Quality vs Water Exploitation Index</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; }
+    h2   { color: #1a3a5c; }
+    .stat{ font-size:13px; color:#555; margin-top:4px; }
+  </style>
+</head>
+<body>
+  <h2>Metadata Quality vs Water Exploitation Index</h2>
+  <p class="stat">Pearson r = +0.178, p = 0.454</p>
+  <div id="plot" style="width:820px;height:560px;"></div>
+  <script>
+    var scatter = {
+      x: [3.4,30.2,3.1,12.1,20.2,5.0,12.8,32.4,2.2,15.5,1.0,2.1,23.8,3.8,42.5,10.2,19.7,13.5,1.5,3.0],
+      y: [0.1791,0.2389,0.3033,0.2083,0.2415,0.2283,0.2283,0.2061,0.2278,0.207,0.2283,0.2732,0.2114,0.2233,0.3,0.1375,0.251,0.3033,0.19,0.2517],
+      text: ["AT", "BE", "BG", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HR", "IE", "IT", "LV", "MT", "NL", "PL", "PT", "SE", "SI"],
+      customdata: ["Austria (AT)<br>Water Exploitation Index (% renewable water): 3.4<br>Composite Metadata Score: 0.179<br>n datasets: 35", "Belgium (BE)<br>Water Exploitation Index (% renewable water): 30.2<br>Composite Metadata Score: 0.239<br>n datasets: 69", "Bulgaria (BG)<br>Water Exploitation Index (% renewable water): 3.1<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Czechia (CZ)<br>Water Exploitation Index (% renewable water): 12.1<br>Composite Metadata Score: 0.208<br>n datasets: 6", "Germany (DE)<br>Water Exploitation Index (% renewable water): 20.2<br>Composite Metadata Score: 0.241<br>n datasets: 275", "Denmark (DK)<br>Water Exploitation Index (% renewable water): 5.0<br>Composite Metadata Score: 0.228<br>n datasets: 19", "Estonia (EE)<br>Water Exploitation Index (% renewable water): 12.8<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Spain (ES)<br>Water Exploitation Index (% renewable water): 32.4<br>Composite Metadata Score: 0.206<br>n datasets: 53", "Finland (FI)<br>Water Exploitation Index (% renewable water): 2.2<br>Composite Metadata Score: 0.228<br>n datasets: 3", "France (FR)<br>Water Exploitation Index (% renewable water): 15.5<br>Composite Metadata Score: 0.207<br>n datasets: 638", "Croatia (HR)<br>Water Exploitation Index (% renewable water): 1.0<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Ireland (IE)<br>Water Exploitation Index (% renewable water): 2.1<br>Composite Metadata Score: 0.273<br>n datasets: 77", "Italy (IT)<br>Water Exploitation Index (% renewable water): 23.8<br>Composite Metadata Score: 0.211<br>n datasets: 75", "Latvia (LV)<br>Water Exploitation Index (% renewable water): 3.8<br>Composite Metadata Score: 0.223<br>n datasets: 3", "Malta (MT)<br>Water Exploitation Index (% renewable water): 42.5<br>Composite Metadata Score: 0.300<br>n datasets: 1", "Netherlands (NL)<br>Water Exploitation Index (% renewable water): 10.2<br>Composite Metadata Score: 0.138<br>n datasets: 159", "Poland (PL)<br>Water Exploitation Index (% renewable water): 19.7<br>Composite Metadata Score: 0.251<br>n datasets: 5", "Portugal (PT)<br>Water Exploitation Index (% renewable water): 13.5<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Sweden (SE)<br>Water Exploitation Index (% renewable water): 1.5<br>Composite Metadata Score: 0.190<br>n datasets: 5", "Slovenia (SI)<br>Water Exploitation Index (% renewable water): 3.0<br>Composite Metadata Score: 0.252<br>n datasets: 3"],
+      hovertemplate: "%{customdata}<extra></extra>",
+      mode: "markers+text",
+      textposition: "top center",
+      type: "scatter",
+      name: "Countries",
+      marker: {
+        size: 12,
+        color: "#2E75B6",
+        line: { width: 1, color: "#fff" }
+      }
+    };
+
+    var trend = {
+      x: [1.0, 42.5],
+      y: [0.2245, 0.2503],
+      mode: "lines",
+      type: "scatter",
+      name: "Trend",
+      line: { color: "#e05c2d", width: 2, dash: "dash" }
+    };
+
+    var layout = {
+      title: { text: "Metadata Quality vs Water Exploitation Index", font: { size: 15 } },
+      xaxis: { title: { text: "Water Exploitation Index (% renewable water)" }, zeroline: false },
+      yaxis: { title: { text: "Composite Metadata Score" }, range: [0, 0.65], zeroline: false },
+      legend: { x: 0.01, y: 0.99 },
+      plot_bgcolor: "#fff",
+      paper_bgcolor: "#fafafa",
+      shapes: [{
+        type: "line", x0: 0, x1: 1, xref: "paper",
+        y0: 0.5, y1: 0.5,
+        line: { color: "#aaa", width: 1, dash: "dot" }
+      }],
+      annotations: [{
+        x: 1, y: 0.5, xref: "paper", yref: "y",
+        text: "Threshold 0.5", showarrow: false,
+        xanchor: "right", font: { size: 10, color: "#aaa" }
+      }]
+    };
+
+    Plotly.newPlot("plot", [scatter, trend], layout, {responsive: true});
+  </script>
+</body>
+</html>

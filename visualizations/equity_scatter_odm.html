@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Metadata Quality vs Open Data Maturity</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; }
+    h2   { color: #1a3a5c; }
+    .stat{ font-size:13px; color:#555; margin-top:4px; }
+  </style>
+</head>
+<body>
+  <h2>Metadata Quality vs Open Data Maturity</h2>
+  <p class="stat">Pearson r = -0.493, p = 0.027</p>
+  <div id="plot" style="width:820px;height:560px;"></div>
+  <script>
+    var scatter = {
+      x: [94.0,90.0,62.0,86.0,91.0,89.0,92.0,95.0,88.0,95.0,80.0,94.0,88.0,80.0,72.0,93.0,87.0,91.0,84.0,91.0],
+      y: [0.1791,0.2389,0.3033,0.2083,0.2415,0.2283,0.2283,0.2061,0.2278,0.207,0.2283,0.2732,0.2114,0.2233,0.3,0.1375,0.251,0.3033,0.19,0.2517],
+      text: ["AT", "BE", "BG", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HR", "IE", "IT", "LV", "MT", "NL", "PL", "PT", "SE", "SI"],
+      customdata: ["Austria (AT)<br>Open Data Maturity 2023 (%): 94.0<br>Composite Metadata Score: 0.179<br>n datasets: 35", "Belgium (BE)<br>Open Data Maturity 2023 (%): 90.0<br>Composite Metadata Score: 0.239<br>n datasets: 69", "Bulgaria (BG)<br>Open Data Maturity 2023 (%): 62.0<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Czechia (CZ)<br>Open Data Maturity 2023 (%): 86.0<br>Composite Metadata Score: 0.208<br>n datasets: 6", "Germany (DE)<br>Open Data Maturity 2023 (%): 91.0<br>Composite Metadata Score: 0.241<br>n datasets: 275", "Denmark (DK)<br>Open Data Maturity 2023 (%): 89.0<br>Composite Metadata Score: 0.228<br>n datasets: 19", "Estonia (EE)<br>Open Data Maturity 2023 (%): 92.0<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Spain (ES)<br>Open Data Maturity 2023 (%): 95.0<br>Composite Metadata Score: 0.206<br>n datasets: 53", "Finland (FI)<br>Open Data Maturity 2023 (%): 88.0<br>Composite Metadata Score: 0.228<br>n datasets: 3", "France (FR)<br>Open Data Maturity 2023 (%): 95.0<br>Composite Metadata Score: 0.207<br>n datasets: 638", "Croatia (HR)<br>Open Data Maturity 2023 (%): 80.0<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Ireland (IE)<br>Open Data Maturity 2023 (%): 94.0<br>Composite Metadata Score: 0.273<br>n datasets: 77", "Italy (IT)<br>Open Data Maturity 2023 (%): 88.0<br>Composite Metadata Score: 0.211<br>n datasets: 75", "Latvia (LV)<br>Open Data Maturity 2023 (%): 80.0<br>Composite Metadata Score: 0.223<br>n datasets: 3", "Malta (MT)<br>Open Data Maturity 2023 (%): 72.0<br>Composite Metadata Score: 0.300<br>n datasets: 1", "Netherlands (NL)<br>Open Data Maturity 2023 (%): 93.0<br>Composite Metadata Score: 0.138<br>n datasets: 159", "Poland (PL)<br>Open Data Maturity 2023 (%): 87.0<br>Composite Metadata Score: 0.251<br>n datasets: 5", "Portugal (PT)<br>Open Data Maturity 2023 (%): 91.0<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Sweden (SE)<br>Open Data Maturity 2023 (%): 84.0<br>Composite Metadata Score: 0.190<br>n datasets: 5", "Slovenia (SI)<br>Open Data Maturity 2023 (%): 91.0<br>Composite Metadata Score: 0.252<br>n datasets: 3"],
+      hovertemplate: "%{customdata}<extra></extra>",
+      mode: "markers+text",
+      textposition: "top center",
+      type: "scatter",
+      name: "Countries",
+      marker: {
+        size: 12,
+        color: "#2E75B6",
+        line: { width: 1, color: "#fff" }
+      }
+    };
+
+    var trend = {
+      x: [62.0, 95.0],
+      y: [0.2943, 0.2123],
+      mode: "lines",
+      type: "scatter",
+      name: "Trend",
+      line: { color: "#e05c2d", width: 2, dash: "dash" }
+    };
+
+    var layout = {
+      title: { text: "Metadata Quality vs Open Data Maturity", font: { size: 15 } },
+      xaxis: { title: { text: "Open Data Maturity 2023 (%)" }, zeroline: false },
+      yaxis: { title: { text: "Composite Metadata Score" }, range: [0, 0.65], zeroline: false },
+      legend: { x: 0.01, y: 0.99 },
+      plot_bgcolor: "#fff",
+      paper_bgcolor: "#fafafa",
+      shapes: [{
+        type: "line", x0: 0, x1: 1, xref: "paper",
+        y0: 0.5, y1: 0.5,
+        line: { color: "#aaa", width: 1, dash: "dot" }
+      }],
+      annotations: [{
+        x: 1, y: 0.5, xref: "paper", yref: "y",
+        text: "Threshold 0.5", showarrow: false,
+        xanchor: "right", font: { size: 10, color: "#aaa" }
+      }]
+    };
+
+    Plotly.newPlot("plot", [scatter, trend], layout, {responsive: true});
+  </script>
+</body>
+</html>

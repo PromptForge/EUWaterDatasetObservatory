@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "n_countries_in_analysis": 20,
+    "n_datasets_total": 2176,
+    "score_columns": [
+      "early_warning_score",
+      "compliance_reporting_score",
+      "cross_border_score"
+    ],
+    "indicator_columns": [
+      "gdp_per_capita_pps",
+      "desi_score",
+      "water_exploitation_index",
+      "open_data_maturity",
+      "egovernment_usage_pct",
+      "data_infrastructure_score"
+    ]
+  },
+  "correlations": {
+    "early_warning_score_mean": {
+      "gdp_per_capita_pps": {
+        "pearson_r": 0.1243,
+        "pearson_p": 0.6015,
+        "spearman_r": -0.0718,
+        "spearman_p": 0.7636,
+        "n": 20
+      },
+      "desi_score": {
+        "pearson_r": -0.2368,
+        "pearson_p": 0.3148,
+        "spearman_r": -0.043,
+        "spearman_p": 0.857,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "pearson_r": -0.0212,
+        "pearson_p": 0.9293,
+        "spearman_r": -0.1012,
+        "spearman_p": 0.6713,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "pearson_r": -0.2246,
+        "pearson_p": 0.3411,
+        "spearman_r": -0.3495,
+        "spearman_p": 0.1309,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "pearson_r": -0.0659,
+        "pearson_p": 0.7827,
+        "spearman_r": 0.019,
+        "spearman_p": 0.9368,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "pearson_r": -0.2765,
+        "pearson_p": 0.238,
+        "spearman_r": -0.194,
+        "spearman_p": 0.4124,
+        "n": 20
+      }
+    },
+    "compliance_reporting_score_mean": {
+      "gdp_per_capita_pps": {
+        "pearson_r": -0.2611,
+        "pearson_p": 0.2662,
+        "spearman_r": -0.2948,
+        "spearman_p": 0.2071,
+        "n": 20
+      },
+      "desi_score": {
+        "pearson_r": -0.4491,
+        "pearson_p": 0.047,
+        "spearman_r": -0.2493,
+        "spearman_p": 0.2891,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "pearson_r": 0.2093,
+        "pearson_p": 0.3758,
+        "spearman_r": 0.1333,
+        "spearman_p": 0.5752,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "pearson_r": -0.5428,
+        "pearson_p": 0.0134,
+        "spearman_r": -0.3702,
+        "spearman_p": 0.1081,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "pearson_r": -0.5072,
+        "pearson_p": 0.0225,
+        "spearman_r": -0.3926,
+        "spearman_p": 0.0869,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "pearson_r": -0.5936,
+        "pearson_p": 0.0058,
+        "spearman_r": -0.4392,
+        "spearman_p": 0.0527,
+        "n": 20
+      }
+    },
+    "cross_border_score_mean": {
+      "gdp_per_capita_pps": {
+        "pearson_r": -0.2289,
+        "pearson_p": 0.3316,
+        "spearman_r": -0.1877,
+        "spearman_p": 0.4281,
+        "n": 20
+      },
+      "desi_score": {
+        "pearson_r": -0.3884,
+        "pearson_p": 0.0906,
+        "spearman_r": -0.1559,
+        "spearman_p": 0.5115,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "pearson_r": 0.2318,
+        "pearson_p": 0.3254,
+        "spearman_r": 0.0746,
+        "spearman_p": 0.7547,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "pearson_r": -0.4422,
+        "pearson_p": 0.0509,
+        "spearman_r": -0.0574,
+        "spearman_p": 0.81,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "pearson_r": -0.612,
+        "pearson_p": 0.0041,
+        "spearman_r": -0.4433,
+        "spearman_p": 0.0503,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "pearson_r": -0.4973,
+        "pearson_p": 0.0257,
+        "spearman_r": -0.3051,
+        "spearman_p": 0.1909,
+        "n": 20
+      }
+    },
+    "composite_score_mean": {
+      "gdp_per_capita_pps": {
+        "pearson_r": -0.1522,
+        "pearson_p": 0.5219,
+        "spearman_r": -0.3325,
+        "spearman_p": 0.1521,
+        "n": 20
+      },
+      "desi_score": {
+        "pearson_r": -0.4395,
+        "pearson_p": 0.0525,
+        "spearman_r": -0.2734,
+        "spearman_p": 0.2434,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "pearson_r": 0.1777,
+        "pearson_p": 0.4535,
+        "spearman_r": 0.064,
+        "spearman_p": 0.7886,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "pearson_r": -0.4928,
+        "pearson_p": 0.0273,
+        "spearman_r": -0.3105,
+        "spearman_p": 0.1827,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "pearson_r": -0.5028,
+        "pearson_p": 0.0239,
+        "spearman_r": -0.4455,
+        "spearman_p": 0.049,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "pearson_r": -0.5582,
+        "pearson_p": 0.0105,
+        "spearman_r": -0.4542,
+        "spearman_p": 0.0442,
+        "n": 20
+      }
+    }
+  },
+  "regressions": {
+    "early_warning_score_mean": {
+      "gdp_per_capita_pps": {
+        "slope": 0.000175,
+        "intercept": 0.211642,
+        "r_squared": 0.0155,
+        "p_value": 0.6015,
+        "std_err": 0.000329,
+        "n": 20
+      },
+      "desi_score": {
+        "slope": -0.001408,
+        "intercept": 0.303775,
+        "r_squared": 0.0561,
+        "p_value": 0.3148,
+        "std_err": 0.001362,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "slope": -8.9e-05,
+        "intercept": 0.231101,
+        "r_squared": 0.0004,
+        "p_value": 0.9293,
+        "std_err": 0.00099,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "slope": -0.001361,
+        "intercept": 0.348499,
+        "r_squared": 0.0504,
+        "p_value": 0.3411,
+        "std_err": 0.001392,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "slope": -0.000263,
+        "intercept": 0.246939,
+        "r_squared": 0.0043,
+        "p_value": 0.7827,
+        "std_err": 0.000941,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "slope": -0.001988,
+        "intercept": 0.368657,
+        "r_squared": 0.0764,
+        "p_value": 0.238,
+        "std_err": 0.001629,
+        "n": 20
+      }
+    },
+    "compliance_reporting_score_mean": {
+      "gdp_per_capita_pps": {
+        "slope": -0.000305,
+        "intercept": 0.219627,
+        "r_squared": 0.0682,
+        "p_value": 0.2662,
+        "std_err": 0.000266,
+        "n": 20
+      },
+      "desi_score": {
+        "slope": -0.002218,
+        "intercept": 0.303957,
+        "r_squared": 0.2017,
+        "p_value": 0.047,
+        "std_err": 0.00104,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "slope": 0.00073,
+        "intercept": 0.17828,
+        "r_squared": 0.0438,
+        "p_value": 0.3758,
+        "std_err": 0.000804,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "slope": -0.002732,
+        "intercept": 0.425645,
+        "r_squared": 0.2947,
+        "p_value": 0.0134,
+        "std_err": 0.000996,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "slope": -0.001684,
+        "intercept": 0.296348,
+        "r_squared": 0.2573,
+        "p_value": 0.0225,
+        "std_err": 0.000675,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "slope": -0.003546,
+        "intercept": 0.435045,
+        "r_squared": 0.3524,
+        "p_value": 0.0058,
+        "std_err": 0.001133,
+        "n": 20
+      }
+    },
+    "cross_border_score_mean": {
+      "gdp_per_capita_pps": {
+        "slope": -0.000405,
+        "intercept": 0.320437,
+        "r_squared": 0.0524,
+        "p_value": 0.3316,
+        "std_err": 0.000406,
+        "n": 20
+      },
+      "desi_score": {
+        "slope": -0.002901,
+        "intercept": 0.430169,
+        "r_squared": 0.1509,
+        "p_value": 0.0906,
+        "std_err": 0.001622,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "slope": 0.001223,
+        "intercept": 0.262324,
+        "r_squared": 0.0537,
+        "p_value": 0.3254,
+        "std_err": 0.00121,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "slope": -0.003366,
+        "intercept": 0.571244,
+        "r_squared": 0.1956,
+        "p_value": 0.0509,
+        "std_err": 0.001609,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "slope": -0.003073,
+        "intercept": 0.476341,
+        "r_squared": 0.3745,
+        "p_value": 0.0041,
+        "std_err": 0.000936,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "slope": -0.004491,
+        "intercept": 0.591427,
+        "r_squared": 0.2473,
+        "p_value": 0.0257,
+        "std_err": 0.001847,
+        "n": 20
+      }
+    },
+    "composite_score_mean": {
+      "gdp_per_capita_pps": {
+        "slope": -0.000178,
+        "intercept": 0.250569,
+        "r_squared": 0.0232,
+        "p_value": 0.5219,
+        "std_err": 0.000273,
+        "n": 20
+      },
+      "desi_score": {
+        "slope": -0.002176,
+        "intercept": 0.345967,
+        "r_squared": 0.1932,
+        "p_value": 0.0525,
+        "std_err": 0.001048,
+        "n": 20
+      },
+      "water_exploitation_index": {
+        "slope": 0.000621,
+        "intercept": 0.223902,
+        "r_squared": 0.0316,
+        "p_value": 0.4535,
+        "std_err": 0.000811,
+        "n": 20
+      },
+      "open_data_maturity": {
+        "slope": -0.002486,
+        "intercept": 0.448463,
+        "r_squared": 0.2429,
+        "p_value": 0.0273,
+        "std_err": 0.001035,
+        "n": 20
+      },
+      "egovernment_usage_pct": {
+        "slope": -0.001674,
+        "intercept": 0.339876,
+        "r_squared": 0.2528,
+        "p_value": 0.0239,
+        "std_err": 0.000678,
+        "n": 20
+      },
+      "data_infrastructure_score": {
+        "slope": -0.003342,
+        "intercept": 0.465043,
+        "r_squared": 0.3116,
+        "p_value": 0.0105,
+        "std_err": 0.001171,
+        "n": 20
+      }
+    }
+  },
+  "group_comparisons": {
+    "GDP (high \u2265120 vs low <80 PPS)": {
+      "early_warning_score_mean": {
+        "hi_mean": 0.2019,
+        "lo_mean": 0.25,
+        "u_stat": 6.5,
+        "p_value": 0.2477
+      },
+      "compliance_reporting_score_mean": {
+        "hi_mean": 0.1552,
+        "lo_mean": 0.2208,
+        "u_stat": 4.5,
+        "p_value": 0.115
+      },
+      "cross_border_score_mean": {
+        "hi_mean": 0.2478,
+        "lo_mean": 0.3148,
+        "u_stat": 6.5,
+        "p_value": 0.2477
+      },
+      "composite_score_mean": {
+        "hi_mean": 0.2016,
+        "lo_mean": 0.2619,
+        "u_stat": 4.5,
+        "p_value": 0.115
+      }
+    },
+    "DESI (high \u226555 vs low <45)": {
+      "early_warning_score_mean": {
+        "hi_mean": 0.2276,
+        "lo_mean": 0.2475,
+        "u_stat": 4.0,
+        "p_value": 0.8571
+      },
+      "compliance_reporting_score_mean": {
+        "hi_mean": 0.1645,
+        "lo_mean": 0.2345,
+        "u_stat": 1.0,
+        "p_value": 0.1905
+      },
+      "cross_border_score_mean": {
+        "hi_mean": 0.242,
+        "lo_mean": 0.3495,
+        "u_stat": 0.0,
+        "p_value": 0.0952
+      },
+      "composite_score_mean": {
+        "hi_mean": 0.2114,
+        "lo_mean": 0.2772,
+        "u_stat": 1.0,
+        "p_value": 0.1905
+      }
+    },
+    "Water stress (high WEI\u226520 vs low <10)": {
+      "early_warning_score_mean": {
+        "hi_mean": 0.2374,
+        "lo_mean": 0.2407,
+        "u_stat": 22.0,
+        "p_value": 1.0
+      },
+      "compliance_reporting_score_mean": {
+        "hi_mean": 0.1961,
+        "lo_mean": 0.1858,
+        "u_stat": 26.0,
+        "p_value": 0.6888
+      },
+      "cross_border_score_mean": {
+        "hi_mean": 0.2851,
+        "lo_mean": 0.2751,
+        "u_stat": 22.0,
+        "p_value": 1.0
+      },
+      "composite_score_mean": {
+        "hi_mean": 0.2396,
+        "lo_mean": 0.2339,
+        "u_stat": 24.0,
+        "p_value": 0.8938
+      }
+    },
+    "ODM (high \u226590 vs low <75)": {
+      "early_warning_score_mean": {
+        "hi_mean": 0.2191,
+        "lo_mean": 0.2425,
+        "u_stat": 7.5,
+        "p_value": 0.6663
+      },
+      "compliance_reporting_score_mean": {
+        "hi_mean": 0.1795,
+        "lo_mean": 0.26,
+        "u_stat": 1.5,
+        "p_value": 0.0851
+      },
+      "cross_border_score_mean": {
+        "hi_mean": 0.2814,
+        "lo_mean": 0.4025,
+        "u_stat": 0.5,
+        "p_value": 0.0528
+      },
+      "composite_score_mean": {
+        "hi_mean": 0.2267,
+        "lo_mean": 0.3017,
+        "u_stat": 1.5,
+        "p_value": 0.0851
+      }
+    }
+  },
+  "narrative_summary": "=================================================================\nEQUITY & DATA JUSTICE ANALYSIS \u2014 NARRATIVE SUMMARY\n=================================================================\n\nAnalysis covered 20 EU countries with both metadata\nsufficiency scores and Eurostat socioeconomic indicators.\n\nSIGNIFICANT CORRELATIONS (p < 0.05):\n\n  \u2022 composite score \u2194 E-Government Usage (%): \u03c1=-0.446, p=0.049 (negative)\n  \u2022 composite score \u2194 Data Infrastructure Score: \u03c1=-0.454, p=0.044 (negative)\n\nMARGINAL CORRELATIONS (0.05 \u2264 p < 0.10):\n\n  \u2022 compliance reporting score \u2194 E-Government Usage (%): \u03c1=-0.393, p=0.087 (marginal, negative)\n  \u2022 compliance reporting score \u2194 Data Infrastructure Score: \u03c1=-0.439, p=0.053 (marginal, negative)\n  \u2022 cross border score \u2194 E-Government Usage (%): \u03c1=-0.443, p=0.050 (marginal, negative)\n\nDIRECTION OF EFFECT SUMMARY (Spearman \u03c1):\n  Score                                    GDP     DESI      WEI      ODM\n  -----------------------------------   ------   ------   ------   ------\n  early warning score                  -0.072   -0.043   -0.101   -0.349 \n  compliance reporting score           -0.295   -0.249   +0.133   -0.370 \n  cross border score                   -0.188   -0.156   +0.075   -0.057 \n  composite score                      -0.333   -0.273   +0.064   -0.310 \n\n  * p<0.05,  \u00b7 p<0.10\n\nOVERALL DATA QUALITY LEVEL:\n  Mean sufficiency score across all countries: 0.232 / 1.0\n  This corresponds to Partial / Insufficient quality overall.\n  The limiting factors are predominantly:\n    - Missing machine-readable formats (zero or minimal coverage)\n    - No open licenses declared\n    - Poor temporal coverage and update-frequency metadata\n    - Low description quality (short or absent abstracts)\n\nDATA JUSTICE CONCLUSION:\n\n  The analysis does NOT find strong evidence that poorer or less\n  digitally developed EU countries produce systematically lower-quality\n  water metadata. Instead, quality gaps are pervasive across all wealth\n  levels, suggesting that the primary bottleneck is sector-level practice\n  (water administration) rather than national digital capacity.\n\n  However, the available country-level sample (n \u2264 27) is small.\n  A sub-national analysis or targeted survey would better reveal\n  whether resource constraints amplify local data quality disparities."
+}

@@ -2,6 +2,11 @@
 """
 EU Water Dataset Observatory - Full Analysis Pipeline
 Runs SPARQL harvest and scoring on real EU water datasets.
+
+Optional flags:
+  --climate   Also run climate adaptation analysis
+              (harvests climate datasets & scores against drought_early_warning,
+               climate_infrastructure, and nbs_monitoring task profiles)
 """
 
 import subprocess
@@ -53,10 +58,33 @@ def main():
             sys.exit(result.returncode)
         print(f"✓ Create Visualizations completed successfully")
     
+    # ── Optional: Climate Adaptation Analysis ────────────────────────────────
+    run_climate = "--climate" in sys.argv
+    climate_harvest = ROOT / "data" / "harvested" / "climate_harvest.csv"
+
+    if run_climate:
+        print("\n" + "="*60)
+        print("CLIMATE ADAPTATION ANALYSIS")
+        print("="*60)
+
+        if climate_harvest.exists():
+            print(f"\n✓ Climate harvest data already exists: {climate_harvest}")
+            print("  (Delete this file to re-run climate harvest)")
+        else:
+            run_step("Climate SPARQL Harvest", "harvest_climate.py")
+
+        run_step("Score Climate Data", "score_climate_data.py")
+
+        print(f"\n✓ Climate outputs available in: {ROOT / 'data' / 'outputs_climate'}")
+    else:
+        print("\n  (Run with --climate flag to include climate adaptation analysis)")
+
     print("\n" + "="*60)
     print("PIPELINE COMPLETE")
     print("="*60)
     print(f"\nOutputs available in: {ROOT / 'data' / 'outputs_real'}")
+    if run_climate:
+        print(f"Climate outputs in  : {ROOT / 'data' / 'outputs_climate'}")
 
 if __name__ == "__main__":
     main()

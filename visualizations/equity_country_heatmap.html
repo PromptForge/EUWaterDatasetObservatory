@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>EU Water Metadata Quality by Country and Task</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+  <style>body{ font-family:Arial,sans-serif; margin:20px; background:#fafafa; }
+         h2  { color:#1a3a5c; }</style>
+</head>
+<body>
+  <h2>EU Water Metadata Quality by Country and Task</h2>
+  <div id="plot" style="width:900px;height:600px;"></div>
+  <script>
+    var data = [{
+      z: [[0.132, 0.137, 0.269, 0.179], [0.255, 0.197, 0.264, 0.239], [0.25, 0.27, 0.39, 0.303], [0.218, 0.175, 0.232, 0.208], [0.263, 0.194, 0.268, 0.241], [0.225, 0.195, 0.265, 0.228], [0.225, 0.195, 0.265, 0.228], [0.206, 0.164, 0.248, 0.206], [0.26, 0.183, 0.24, 0.228], [0.224, 0.169, 0.229, 0.207], [0.225, 0.195, 0.265, 0.228], [0.328, 0.204, 0.287, 0.273], [0.228, 0.175, 0.231, 0.211], [0.28, 0.17, 0.22, 0.223], [0.235, 0.25, 0.415, 0.3], [0.083, 0.094, 0.236, 0.138], [0.245, 0.199, 0.309, 0.251], [0.25, 0.27, 0.39, 0.303], [0.242, 0.146, 0.182, 0.19], [0.225, 0.172, 0.358, 0.252]],
+      x: ["Early Warning", "Compliance", "Cross-Border", "Composite"],
+      y: ["AT", "BE", "BG", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HR", "IE", "IT", "LV", "MT", "NL", "PL", "PT", "SE", "SI"],
+      text: [["Austria \u2013 Early Warning: 0.132", "Austria \u2013 Compliance: 0.137", "Austria \u2013 Cross-Border: 0.269", "Austria \u2013 Composite: 0.179"], ["Belgium \u2013 Early Warning: 0.255", "Belgium \u2013 Compliance: 0.197", "Belgium \u2013 Cross-Border: 0.264", "Belgium \u2013 Composite: 0.239"], ["Bulgaria \u2013 Early Warning: 0.250", "Bulgaria \u2013 Compliance: 0.270", "Bulgaria \u2013 Cross-Border: 0.390", "Bulgaria \u2013 Composite: 0.303"], ["Czechia \u2013 Early Warning: 0.218", "Czechia \u2013 Compliance: 0.175", "Czechia \u2013 Cross-Border: 0.232", "Czechia \u2013 Composite: 0.208"], ["Germany \u2013 Early Warning: 0.263", "Germany \u2013 Compliance: 0.194", "Germany \u2013 Cross-Border: 0.268", "Germany \u2013 Composite: 0.241"], ["Denmark \u2013 Early Warning: 0.225", "Denmark \u2013 Compliance: 0.195", "Denmark \u2013 Cross-Border: 0.265", "Denmark \u2013 Composite: 0.228"], ["Estonia \u2013 Early Warning: 0.225", "Estonia \u2013 Compliance: 0.195", "Estonia \u2013 Cross-Border: 0.265", "Estonia \u2013 Composite: 0.228"], ["Spain \u2013 Early Warning: 0.206", "Spain \u2013 Compliance: 0.164", "Spain \u2013 Cross-Border: 0.248", "Spain \u2013 Composite: 0.206"], ["Finland \u2013 Early Warning: 0.260", "Finland \u2013 Compliance: 0.183", "Finland \u2013 Cross-Border: 0.240", "Finland \u2013 Composite: 0.228"], ["France \u2013 Early Warning: 0.224", "France \u2013 Compliance: 0.169", "France \u2013 Cross-Border: 0.229", "France \u2013 Composite: 0.207"], ["Croatia \u2013 Early Warning: 0.225", "Croatia \u2013 Compliance: 0.195", "Croatia \u2013 Cross-Border: 0.265", "Croatia \u2013 Composite: 0.228"], ["Ireland \u2013 Early Warning: 0.328", "Ireland \u2013 Compliance: 0.204", "Ireland \u2013 Cross-Border: 0.287", "Ireland \u2013 Composite: 0.273"], ["Italy \u2013 Early Warning: 0.228", "Italy \u2013 Compliance: 0.175", "Italy \u2013 Cross-Border: 0.231", "Italy \u2013 Composite: 0.211"], ["Latvia \u2013 Early Warning: 0.280", "Latvia \u2013 Compliance: 0.170", "Latvia \u2013 Cross-Border: 0.220", "Latvia \u2013 Composite: 0.223"], ["Malta \u2013 Early Warning: 0.235", "Malta \u2013 Compliance: 0.250", "Malta \u2013 Cross-Border: 0.415", "Malta \u2013 Composite: 0.300"], ["Netherlands \u2013 Early Warning: 0.083", "Netherlands \u2013 Compliance: 0.094", "Netherlands \u2013 Cross-Border: 0.236", "Netherlands \u2013 Composite: 0.138"], ["Poland \u2013 Early Warning: 0.245", "Poland \u2013 Compliance: 0.199", "Poland \u2013 Cross-Border: 0.309", "Poland \u2013 Composite: 0.251"], ["Portugal \u2013 Early Warning: 0.250", "Portugal \u2013 Compliance: 0.270", "Portugal \u2013 Cross-Border: 0.390", "Portugal \u2013 Composite: 0.303"], ["Sweden \u2013 Early Warning: 0.242", "Sweden \u2013 Compliance: 0.146", "Sweden \u2013 Cross-Border: 0.182", "Sweden \u2013 Composite: 0.190"], ["Slovenia \u2013 Early Warning: 0.225", "Slovenia \u2013 Compliance: 0.172", "Slovenia \u2013 Cross-Border: 0.358", "Slovenia \u2013 Composite: 0.252"]],
+      hovertemplate: "%{text}<extra></extra>",
+      type: "heatmap",
+      colorscale: [
+        [0.0, "#d73027"], [0.25, "#fc8d59"],
+        [0.5, "#fee090"], [0.75, "#91bfdb"],
+        [1.0, "#4575b4"]
+      ],
+      zmin: 0, zmax: 0.6,
+      colorbar: { title: "Score" }
+    }];
+    var layout = {
+      title: "EU Water Metadata Quality by Country and Task",
+      xaxis: { title: "Task Category" },
+      yaxis: { title: "Country", autorange: "reversed" },
+      plot_bgcolor: "#fff",
+      paper_bgcolor: "#fafafa",
+      margin: { l: 60, r: 20, t: 60, b: 60 }
+    };
+    Plotly.newPlot("plot", data, layout, {responsive: true});
+  </script>
+</body>
+</html>

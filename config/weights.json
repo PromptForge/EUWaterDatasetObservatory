@@ -25,5 +25,42 @@
     "description_quality": 0.10,
     "license_openness": 0.05,
     "temporal_recency": 0.05
+  },
+  "drought_early_warning": {
+    "description": "Drought monitoring and early warning systems",
+    "temporal_recency": 0.20,
+    "temporal_coverage": 0.25,
+    "update_frequency": 0.15,
+    "spatial_precision": 0.15,
+    "format_readability": 0.10,
+    "license_openness": 0.05,
+    "description_quality": 0.05,
+    "vocabulary_standard": 0.05,
+    "threshold_ready": 0.70,
+    "threshold_partial": 0.40
+  },
+  "climate_infrastructure": {
+    "description": "Climate-resilient water infrastructure planning",
+    "temporal_coverage": 0.20,
+    "spatial_precision": 0.25,
+    "format_readability": 0.15,
+    "description_quality": 0.15,
+    "license_openness": 0.10,
+    "vocabulary_standard": 0.10,
+    "temporal_recency": 0.05,
+    "threshold_ready": 0.70,
+    "threshold_partial": 0.40
+  },
+  "nbs_monitoring": {
+    "description": "Nature-based solutions monitoring and evaluation",
+    "temporal_coverage": 0.25,
+    "description_quality": 0.20,
+    "spatial_precision": 0.15,
+    "format_readability": 0.15,
+    "vocabulary_standard": 0.10,
+    "license_openness": 0.10,
+    "temporal_recency": 0.05,
+    "threshold_ready": 0.70,
+    "threshold_partial": 0.40
   }
 }

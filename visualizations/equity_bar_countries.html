@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Composite Metadata Quality Score by Country</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+  <style>body{ font-family:Arial,sans-serif; margin:20px; background:#fafafa; }
+         h2  { color:#1a3a5c; }</style>
+</head>
+<body>
+  <h2>Composite Metadata Quality Score by Country</h2>
+  <div id="plot" style="width:900px;height:480px;"></div>
+  <script>
+    Plotly.newPlot("plot", [{
+      x: ["BG", "PT", "MT", "IE", "SI", "PL", "DE", "BE", "HR", "EE", "DK", "FI", "LV", "IT", "CZ", "FR", "ES", "SE", "AT", "NL"],
+      y: [0.3033, 0.3033, 0.3, 0.2732, 0.2517, 0.251, 0.2415, 0.2389, 0.2283, 0.2283, 0.2283, 0.2278, 0.2233, 0.2114, 0.2083, 0.207, 0.2061, 0.19, 0.1791, 0.1375],
+      customdata: ["Bulgaria (BG)<br>Score: 0.303<br>n datasets: 1", "Portugal (PT)<br>Score: 0.303<br>n datasets: 1", "Malta (MT)<br>Score: 0.300<br>n datasets: 1", "Ireland (IE)<br>Score: 0.273<br>n datasets: 77", "Slovenia (SI)<br>Score: 0.252<br>n datasets: 3", "Poland (PL)<br>Score: 0.251<br>n datasets: 5", "Germany (DE)<br>Score: 0.241<br>n datasets: 275", "Belgium (BE)<br>Score: 0.239<br>n datasets: 69", "Croatia (HR)<br>Score: 0.228<br>n datasets: 1", "Estonia (EE)<br>Score: 0.228<br>n datasets: 1", "Denmark (DK)<br>Score: 0.228<br>n datasets: 19", "Finland (FI)<br>Score: 0.228<br>n datasets: 3", "Latvia (LV)<br>Score: 0.223<br>n datasets: 3", "Italy (IT)<br>Score: 0.211<br>n datasets: 75", "Czechia (CZ)<br>Score: 0.208<br>n datasets: 6", "France (FR)<br>Score: 0.207<br>n datasets: 638", "Spain (ES)<br>Score: 0.206<br>n datasets: 53", "Sweden (SE)<br>Score: 0.190<br>n datasets: 5", "Austria (AT)<br>Score: 0.179<br>n datasets: 35", "Netherlands (NL)<br>Score: 0.138<br>n datasets: 159"],
+      hovertemplate: "%{customdata}<extra></extra>",
+      type: "bar",
+      marker: {
+        color: [0.3033, 0.3033, 0.3, 0.2732, 0.2517, 0.251, 0.2415, 0.2389, 0.2283, 0.2283, 0.2283, 0.2278, 0.2233, 0.2114, 0.2083, 0.207, 0.2061, 0.19, 0.1791, 0.1375],
+        colorscale: [
+          [0, "#d73027"], [0.4, "#fc8d59"], [0.6, "#fee090"],
+          [0.8, "#91bfdb"], [1, "#4575b4"]
+        ],
+        showscale: true,
+        cmin: 0, cmax: 0.6,
+        colorbar: { title: "Score" }
+      }
+    }], {
+      title: "Composite Metadata Quality Score by Country",
+      xaxis: { title: "Country" },
+      yaxis: { title: "Score (0–1)", range: [0, 0.65] },
+      plot_bgcolor: "#fff",
+      paper_bgcolor: "#fafafa",
+      shapes: [{
+        type: "line", x0: 0, x1: 1, xref: "paper",
+        y0: 0.5, y1: 0.5,
+        line: { color: "#e05c2d", width: 1.5, dash: "dot" }
+      }]
+    }, {responsive: true});
+  </script>
+</body>
+</html>

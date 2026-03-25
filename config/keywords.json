@@ -33,5 +33,33 @@
     "fr": ["approvisionnement en eau", "eaux usées", "eau potable", "assainissement", "station d'épuration"],
     "es": ["abastecimiento de agua", "aguas residuales", "agua potable", "depuradora", "saneamiento"],
     "it": ["approvvigionamento idrico", "acque reflue", "acqua potabile", "depurazione", "fognatura"]
+  },
+  "drought": {
+    "en": ["drought", "water scarcity", "water stress", "drought index", "SPI", "SPEI", "low flow", "drought monitoring", "drought early warning"],
+    "de": ["dürre", "wasserknappheit", "wasserstress", "trockenheit"],
+    "fr": ["sécheresse", "stress hydrique", "pénurie d'eau"],
+    "es": ["sequía", "escasez de agua", "estrés hídrico"],
+    "it": ["siccità", "scarsità idrica", "stress idrico"]
+  },
+  "climate_projections": {
+    "en": ["climate projection", "climate scenario", "RCP", "SSP", "climate change impact", "future climate", "climate model", "downscaling", "CMIP"],
+    "de": ["klimaprojektion", "klimaszenario", "klimawandel", "klimamodell"],
+    "fr": ["projection climatique", "scénario climatique", "changement climatique"],
+    "es": ["proyección climática", "escenario climático", "cambio climático"],
+    "it": ["proiezione climatica", "scenario climatico", "cambiamento climatico"]
+  },
+  "precipitation": {
+    "en": ["precipitation", "rainfall", "rain gauge", "precipitation data", "rainfall intensity", "extreme precipitation"],
+    "de": ["niederschlag", "regen", "regenmesser"],
+    "fr": ["précipitation", "pluie", "pluviométrie"],
+    "es": ["precipitación", "lluvia", "pluviometría"],
+    "it": ["precipitazione", "pioggia", "pluviometria"]
+  },
+  "nature_based_solutions": {
+    "en": ["nature-based solutions", "NBS", "green infrastructure", "ecosystem services", "wetland restoration", "natural water retention", "floodplain restoration"],
+    "de": ["naturbasierte lösungen", "grüne infrastruktur", "ökosystemleistungen"],
+    "fr": ["solutions fondées sur la nature", "infrastructure verte", "services écosystémiques"],
+    "es": ["soluciones basadas en la naturaleza", "infraestructura verde"],
+    "it": ["soluzioni basate sulla natura", "infrastruttura verde"]
   }
 }

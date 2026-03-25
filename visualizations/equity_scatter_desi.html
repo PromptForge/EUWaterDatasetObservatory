@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Metadata Quality vs DESI Score</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; }
+    h2   { color: #1a3a5c; }
+    .stat{ font-size:13px; color:#555; margin-top:4px; }
+  </style>
+</head>
+<body>
+  <h2>Metadata Quality vs DESI Score</h2>
+  <p class="stat">Pearson r = -0.439, p = 0.053</p>
+  <div id="plot" style="width:820px;height:560px;"></div>
+  <script>
+    var scatter = {
+      x: [52.4,49.3,37.4,48.3,52.9,63.3,53.9,50.5,69.3,51.7,45.3,56.4,45.5,46.5,53.4,67.4,40.5,50.8,65.1,48.5],
+      y: [0.1791,0.2389,0.3033,0.2083,0.2415,0.2283,0.2283,0.2061,0.2278,0.207,0.2283,0.2732,0.2114,0.2233,0.3,0.1375,0.251,0.3033,0.19,0.2517],
+      text: ["AT", "BE", "BG", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HR", "IE", "IT", "LV", "MT", "NL", "PL", "PT", "SE", "SI"],
+      customdata: ["Austria (AT)<br>DESI Score 2023 (0\u2013100): 52.4<br>Composite Metadata Score: 0.179<br>n datasets: 35", "Belgium (BE)<br>DESI Score 2023 (0\u2013100): 49.3<br>Composite Metadata Score: 0.239<br>n datasets: 69", "Bulgaria (BG)<br>DESI Score 2023 (0\u2013100): 37.4<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Czechia (CZ)<br>DESI Score 2023 (0\u2013100): 48.3<br>Composite Metadata Score: 0.208<br>n datasets: 6", "Germany (DE)<br>DESI Score 2023 (0\u2013100): 52.9<br>Composite Metadata Score: 0.241<br>n datasets: 275", "Denmark (DK)<br>DESI Score 2023 (0\u2013100): 63.3<br>Composite Metadata Score: 0.228<br>n datasets: 19", "Estonia (EE)<br>DESI Score 2023 (0\u2013100): 53.9<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Spain (ES)<br>DESI Score 2023 (0\u2013100): 50.5<br>Composite Metadata Score: 0.206<br>n datasets: 53", "Finland (FI)<br>DESI Score 2023 (0\u2013100): 69.3<br>Composite Metadata Score: 0.228<br>n datasets: 3", "France (FR)<br>DESI Score 2023 (0\u2013100): 51.7<br>Composite Metadata Score: 0.207<br>n datasets: 638", "Croatia (HR)<br>DESI Score 2023 (0\u2013100): 45.3<br>Composite Metadata Score: 0.228<br>n datasets: 1", "Ireland (IE)<br>DESI Score 2023 (0\u2013100): 56.4<br>Composite Metadata Score: 0.273<br>n datasets: 77", "Italy (IT)<br>DESI Score 2023 (0\u2013100): 45.5<br>Composite Metadata Score: 0.211<br>n datasets: 75", "Latvia (LV)<br>DESI Score 2023 (0\u2013100): 46.5<br>Composite Metadata Score: 0.223<br>n datasets: 3", "Malta (MT)<br>DESI Score 2023 (0\u2013100): 53.4<br>Composite Metadata Score: 0.300<br>n datasets: 1", "Netherlands (NL)<br>DESI Score 2023 (0\u2013100): 67.4<br>Composite Metadata Score: 0.138<br>n datasets: 159", "Poland (PL)<br>DESI Score 2023 (0\u2013100): 40.5<br>Composite Metadata Score: 0.251<br>n datasets: 5", "Portugal (PT)<br>DESI Score 2023 (0\u2013100): 50.8<br>Composite Metadata Score: 0.303<br>n datasets: 1", "Sweden (SE)<br>DESI Score 2023 (0\u2013100): 65.1<br>Composite Metadata Score: 0.190<br>n datasets: 5", "Slovenia (SI)<br>DESI Score 2023 (0\u2013100): 48.5<br>Composite Metadata Score: 0.252<br>n datasets: 3"],
+      hovertemplate: "%{customdata}<extra></extra>",
+      mode: "markers+text",
+      textposition: "top center",
+      type: "scatter",
+      name: "Countries",
+      marker: {
+        size: 12,
+        color: "#2E75B6",
+        line: { width: 1, color: "#fff" }
+      }
+    };
+
+    var trend = {
+      x: [37.4, 69.3],
+      y: [0.2646, 0.1952],
+      mode: "lines",
+      type: "scatter",
+      name: "Trend",
+      line: { color: "#e05c2d", width: 2, dash: "dash" }
+    };
+
+    var layout = {
+      title: { text: "Metadata Quality vs DESI Score", font: { size: 15 } },
+      xaxis: { title: { text: "DESI Score 2023 (0–100)" }, zeroline: false },
+      yaxis: { title: { text: "Composite Metadata Score" }, range: [0, 0.65], zeroline: false },
+      legend: { x: 0.01, y: 0.99 },
+      plot_bgcolor: "#fff",
+      paper_bgcolor: "#fafafa",
+      shapes: [{
+        type: "line", x0: 0, x1: 1, xref: "paper",
+        y0: 0.5, y1: 0.5,
+        line: { color: "#aaa", width: 1, dash: "dot" }
+      }],
+      annotations: [{
+        x: 1, y: 0.5, xref: "paper", yref: "y",
+        text: "Threshold 0.5", showarrow: false,
+        xanchor: "right", font: { size: 10, color: "#aaa" }
+      }]
+    };
+
+    Plotly.newPlot("plot", [scatter, trend], layout, {responsive: true});
+  </script>
+</body>
+</html>
