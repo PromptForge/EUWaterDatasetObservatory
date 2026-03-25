@@ -1,0 +1,119 @@
+{
+  "analysis_timestamp": "2026-03-25T17:54:41.708164",
+  "total_records": 994,
+  "unique_datasets": 994,
+  "domain_distribution": {
+    "drought_early_warning": 500,
+    "climate_infrastructure": 494
+  },
+  "task_scores": {
+    "drought_early_warning": {
+      "mean": 0.0984,
+      "median": 0.04,
+      "min": 0.0,
+      "max": 0.45,
+      "std": 0.1036,
+      "ready_pct": 0.0,
+      "partial_pct": 0.1,
+      "insufficient_pct": 99.9
+    },
+    "climate_infrastructure": {
+      "mean": 0.1468,
+      "median": 0.105,
+      "min": 0.0,
+      "max": 0.5,
+      "std": 0.1441,
+      "ready_pct": 0.0,
+      "partial_pct": 3.92,
+      "insufficient_pct": 96.08
+    },
+    "nbs_monitoring": {
+      "mean": 0.1832,
+      "median": 0.155,
+      "min": 0.045,
+      "max": 0.55,
+      "std": 0.1352,
+      "ready_pct": 0.0,
+      "partial_pct": 2.31,
+      "insufficient_pct": 97.69
+    },
+    "early_warning": {
+      "mean": 0.1256,
+      "median": 0.06,
+      "min": 0.0,
+      "max": 0.55,
+      "std": 0.1354,
+      "ready_pct": 0.0,
+      "partial_pct": 1.71,
+      "insufficient_pct": 98.29
+    },
+    "compliance_reporting": {
+      "mean": 0.1366,
+      "median": 0.12,
+      "min": 0.0,
+      "max": 0.445,
+      "std": 0.131,
+      "ready_pct": 0.0,
+      "partial_pct": 1.61,
+      "insufficient_pct": 98.39
+    },
+    "cross_border": {
+      "mean": 0.2335,
+      "median": 0.24,
+      "min": 0.14,
+      "max": 0.615,
+      "std": 0.0903,
+      "ready_pct": 0.0,
+      "partial_pct": 1.91,
+      "insufficient_pct": 98.09
+    }
+  },
+  "domain_breakdown": {
+    "drought_early_warning": {
+      "count": 500,
+      "task_scores": {
+        "drought_early_warning": 0.1426,
+        "climate_infrastructure": 0.2072,
+        "nbs_monitoring": 0.2443,
+        "early_warning": 0.1827,
+        "compliance_reporting": 0.1925,
+        "cross_border": 0.2678
+      }
+    },
+    "climate_infrastructure": {
+      "count": 494,
+      "task_scores": {
+        "drought_early_warning": 0.0536,
+        "climate_infrastructure": 0.0857,
+        "nbs_monitoring": 0.1213,
+        "early_warning": 0.0679,
+        "compliance_reporting": 0.08,
+        "cross_border": 0.1987
+      }
+    }
+  },
+  "water_comparison": {
+    "early_warning": {
+      "water_mean_all_datasets": 0.20159007352941175,
+      "climate_dataset_mean": 0.1256
+    },
+    "compliance": {
+      "water_mean_all_datasets": 0.15485064338235294,
+      "climate_dataset_mean": 0.1366
+    },
+    "cross_border": {
+      "water_mean_all_datasets": 0.2406295955882353,
+      "climate_dataset_mean": 0.2335
+    }
+  },
+  "metadata_completeness": {
+    "has_open_license_pct": 0.1,
+    "has_coordinates_pct": 38.63,
+    "has_temporal_pct": 49.7,
+    "is_machine_readable_pct": 0.0,
+    "has_eurovoc_pct": 0.4,
+    "is_multilingual_pct": 1.51,
+    "has_description_pct": 58.25
+  },
+  "discovery_gap_note": "nature_based_solutions domain returned 0 datasets in both primary and fallback SPARQL harvests. drought_early_warning: 500 datasets; climate_infrastructure: 494 datasets."
+}

@@ -1,20 +1,20 @@
 """
-EU Water Dataset Observatory - Climate Adaptation Data Scorer
+EU Water Dataset Observatory — Climate Adaptation Data Scorer
 
-Scores harvested climate datasets against three climate-specific task profiles:
-  - drought_early_warning    : drought monitoring & forecasting
-  - climate_infrastructure   : climate-resilient infrastructure planning
-  - nbs_monitoring           : nature-based solutions monitoring
+Scores harvested climate datasets against:
+  - 3 climate tasks: drought_early_warning, climate_infrastructure, nbs_monitoring
+    (weights loaded from config/climate_weights.json)
+  - 3 original water tasks: early_warning, compliance_reporting, cross_border
+    (weights loaded from config/weights.json via sufficiency_scoring.load_weights)
 
-Reuses the existing column-preparation helpers from score_real_data and calls
-the same sufficiency_scoring / sensitivity_analysis / impact_proxy modules.
+Inputs:
+  data/harvested/climate_harvest.csv
+  config/climate_weights.json
 
-Inputs:  data/harvested/climate_harvest.csv
-Outputs: data/outputs_climate/climate_sufficiency_scores.csv
-         data/outputs_climate/climate_sensitivity_summary.csv
-         data/outputs_climate/climate_sensitivity_detail.csv
-         data/outputs_climate/climate_priority_scores.csv
-         data/outputs_climate/climate_analysis_summary.json
+Outputs:
+  data/outputs_climate/climate_prepared_records.csv   — column-mapped prepared data
+  data/outputs_climate/climate_sufficiency_scores.csv — dataset_uri, domain, 6 scores
+  data/outputs_climate/climate_analysis_summary.json  — summary statistics
 """
 
 import pandas as pd
@@ -24,356 +24,239 @@ from pathlib import Path
 from datetime import datetime
 import sys
 
-# Ensure sibling imports work when called from any cwd
 sys.path.insert(0, str(Path(__file__).parent))
 
-from sufficiency_scoring import compute_all_sufficiency_scores, classify_readiness
-from sensitivity_analysis import run_sensitivity_analysis
-from impact_proxy import compute_impact, compute_priority
+from sufficiency_scoring import (
+    compute_sufficiency,
+    classify_readiness,
+    load_weights,
+    score_temporal_recency,
+    score_update_frequency,
+    score_temporal_coverage,
+    score_spatial_precision,
+    score_format_readability,
+    score_license_openness,
+    score_description_quality,
+    score_vocabulary_standard,
+    score_multilingual,
+)
 
 # Re-use all column-prep helpers from score_real_data
 from score_real_data import (
+    prepare_harvested_data,
     _parse_date_to_str,
-    _extract_format,
-    _infer_publisher_type,
-    _infer_update_frequency,
-    _calc_temporal_span,
-    _infer_spatial_precision,
     _count_keywords,
     _count_languages,
     _is_open_license,
+    _infer_update_frequency,
+    _infer_spatial_precision,
+    _infer_publisher_type,
+    _calc_temporal_span,
+    _extract_format,
 )
 
-# ─── Climate task weight profiles ────────────────────────────────────────────
+ROOT       = Path(__file__).parent.parent
+CONFIG_DIR = ROOT / "config"
+OUTPUT_DIR = ROOT / "data" / "outputs_climate"
 
-CLIMATE_TASKS = {
-    "drought_early_warning": {
-        "temporal_recency":    0.20,
-        "temporal_coverage":   0.25,   # Long time series critical
-        "update_frequency":    0.15,
-        "spatial_precision":   0.15,
-        "format_readability":  0.10,
-        "license_openness":    0.05,
-        "description_quality": 0.05,
-        "vocabulary_standard": 0.05,
-    },
-    "climate_infrastructure": {
-        "temporal_coverage":   0.20,   # Need projections/long history
-        "spatial_precision":   0.25,   # Location-specific planning
-        "format_readability":  0.15,
-        "description_quality": 0.15,   # Methodology documentation
-        "license_openness":    0.10,
-        "vocabulary_standard": 0.10,
-        "temporal_recency":    0.05,
-    },
-    "nbs_monitoring": {
-        "temporal_coverage":   0.25,   # Long-term monitoring essential
-        "description_quality": 0.20,   # Need methodology docs
-        "spatial_precision":   0.15,
-        "format_readability":  0.15,
-        "vocabulary_standard": 0.10,
-        "license_openness":    0.10,
-        "temporal_recency":    0.05,
-    },
+# Dimension scoring functions for climate tasks
+METRIC_FUNCTIONS = {
+    "temporal_recency":    score_temporal_recency,
+    "update_frequency":    score_update_frequency,
+    "temporal_coverage":   score_temporal_coverage,
+    "spatial_precision":   score_spatial_precision,
+    "format_readability":  score_format_readability,
+    "license_openness":    score_license_openness,
+    "description_quality": score_description_quality,
+    "vocabulary_standard": score_vocabulary_standard,
+    "multilingual":        score_multilingual,
 }
 
-THRESHOLDS = {"ready": 0.70, "partial": 0.40}
+
+def load_climate_weights() -> dict:
+    with open(CONFIG_DIR / "climate_weights.json") as f:
+        return json.load(f)
 
 
-# ─── Column mapping (mirrors prepare_harvested_data in score_real_data.py) ───
+def compute_climate_task_score(row: pd.Series, task: str,
+                                climate_weights: dict) -> tuple[float, dict]:
+    """Compute sufficiency score for a climate task, plus per-dimension detail."""
+    weights = climate_weights[task]
+    total_w = 0.0
+    weighted_sum = 0.0
+    detail = {}
+    for metric, weight in weights.items():
+        fn = METRIC_FUNCTIONS.get(metric)
+        if fn is None:
+            continue
+        try:
+            s = fn(row)
+        except Exception:
+            s = 0.0
+        detail[metric] = round(float(s), 4)
+        weighted_sum += weight * s
+        total_w += weight
+    score = round(weighted_sum / total_w, 4) if total_w > 0 else 0.0
+    return score, detail
 
-def prepare_climate_data(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Map climate_harvest.csv columns to the schema expected by
-    sufficiency_scoring, sensitivity_analysis and impact_proxy.
-    """
-    prepared = pd.DataFrame()
-
-    # ── Core identifiers & text ──────────────────────────────────────────────
-    prepared["dataset_id"]  = df["dataset_uri"].fillna("").astype(str)
-    prepared["title"]       = df["title"].fillna("").astype(str)
-    prepared["description"] = df["description"].fillna("").astype(str)
-    prepared["domain"]      = df["climate_domain"].fillna("climate_general").astype(str)
-    prepared["country"]     = df.get("country", pd.Series("unknown", index=df.index)).fillna("unknown").astype(str)
-
-    # ── Temporal ─────────────────────────────────────────────────────────────
-    prepared["last_modified"] = df["modified"].apply(_parse_date_to_str)
-    prepared["temporal_span_years"] = df.apply(
-        lambda r: _calc_temporal_span(r.get("temporal_start"), r.get("temporal_end")),
-        axis=1,
-    )
-    prepared["update_frequency"] = df.apply(
-        lambda r: _infer_update_frequency(r.get("title", ""), r.get("description", "")),
-        axis=1,
-    )
-
-    # ── Spatial ──────────────────────────────────────────────────────────────
-    has_coords = df.get("has_coordinates", pd.Series(False, index=df.index)).fillna(False)
-    if has_coords.dtype == object:
-        has_coords = has_coords.map(lambda x: str(x).strip().lower() == "true")
-    prepared["has_coordinates"]   = has_coords.astype(bool)
-    prepared["spatial_precision"] = df.apply(
-        lambda r: _infer_spatial_precision(
-            r.get("spatial", ""),
-            prepared.loc[r.name, "has_coordinates"],
-        ),
-        axis=1,
-    )
-
-    # ── License ──────────────────────────────────────────────────────────────
-    prepared["is_open_license"] = df["license"].apply(_is_open_license)
-    prepared["license"]         = df["license"].fillna("").astype(str)
-
-    # ── Format ───────────────────────────────────────────────────────────────
-    prepared["format"] = df["format"].apply(_extract_format)
-
-    # ── Description quality ──────────────────────────────────────────────────
-    prepared["description_length"] = prepared["description"].apply(
-        lambda x: len(str(x).split()) if x else 0
-    )
-
-    # ── Keywords / vocabulary ─────────────────────────────────────────────────
-    prepared["num_keywords"] = df["keyword"].apply(_count_keywords)
-    prepared["has_eurovoc"]  = (
-        (prepared["num_keywords"] >= 3) &
-        prepared["country"].isin(["eu"])
-    )
-
-    # ── Languages ────────────────────────────────────────────────────────────
-    prepared["num_languages"]    = df["language"].apply(_count_languages)
-    prepared["has_multilingual"] = prepared["num_languages"] >= 2
-
-    # ── Publisher type ────────────────────────────────────────────────────────
-    prepared["publisher_type"] = df.apply(
-        lambda r: _infer_publisher_type(
-            r.get("publisher_name", ""), r.get("publisher_uri", "")
-        ),
-        axis=1,
-    )
-    prepared["publisher"] = df.get(
-        "publisher_name", pd.Series("", index=df.index)
-    ).fillna("").astype(str)
-
-    # ── Pass-through fields ───────────────────────────────────────────────────
-    prepared["dataset_uri"]       = df["dataset_uri"].fillna("").astype(str)
-    prepared["climate_domain"]    = df["climate_domain"].fillna("climate_general").astype(str)
-    prepared["modified_date"]     = df["modified"].fillna("").astype(str)
-    prepared["temporal_start"]    = df.get("temporal_start", pd.Series("", index=df.index)).fillna("").astype(str)
-    prepared["temporal_end"]      = df.get("temporal_end",   pd.Series("", index=df.index)).fillna("").astype(str)
-    prepared["keyword_raw"]       = df["keyword"].fillna("").astype(str)
-    prepared["language_raw"]      = df["language"].fillna("").astype(str)
-    prepared["has_license_flag"]  = df.get("has_license", pd.Series(False, index=df.index)).map(
-        lambda x: str(x).strip().lower() == "true"
-    )
-    prepared["has_temporal_flag"] = df.get("has_temporal", pd.Series(False, index=df.index)).map(
-        lambda x: str(x).strip().lower() == "true"
-    )
-    prepared["is_machine_readable"] = df.get("is_machine_readable", pd.Series(False, index=df.index)).map(
-        lambda x: str(x).strip().lower() == "true"
-    )
-
-    print(f"  Prepared {len(prepared)} records with {len(prepared.columns)} columns")
-    return prepared
-
-
-# ─── Main analysis pipeline ───────────────────────────────────────────────────
 
 def main():
-    ROOT        = Path(__file__).parent.parent
-    INPUT_PATH  = ROOT / "data" / "harvested" / "climate_harvest.csv"
-    OUTPUT_DIR  = ROOT / "data" / "outputs_climate"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     print("=" * 60)
-    print("CLIMATE ADAPTATION DATA SCORING")
+    print("CLIMATE ADAPTATION SUFFICIENCY SCORING")
+    print(f"Started: {datetime.now().isoformat()}")
     print("=" * 60)
 
-    if not INPUT_PATH.exists():
-        print(f"ERROR: {INPUT_PATH} not found!")
-        print("Run harvest_climate.py first.")
+    # ── 1. Load & prepare ────────────────────────────────────────────────────
+    harvest_path = ROOT / "data" / "harvested" / "climate_harvest.csv"
+    if not harvest_path.exists():
+        print(f"ERROR: {harvest_path} not found. Run harvest_climate.py first.")
         return
 
-    # ── 1. Load & prepare ────────────────────────────────────────────────────
-    print("\n=== Loading & preparing climate harvest data ===")
-    raw_df = pd.read_csv(INPUT_PATH, low_memory=False)
-    print(f"  Loaded {len(raw_df)} rows, columns: {list(raw_df.columns)}")
-    df = prepare_climate_data(raw_df)
+    print("\n=== Loading & preparing climate harvest ===")
+    raw_df = pd.read_csv(harvest_path, low_memory=False)
+    print(f"  Loaded {len(raw_df)} rows")
+
+    # Use the same preparation pipeline as score_real_data.py
+    df = prepare_harvested_data(harvest_path)
+
+    # Restore `domain` from climate harvest (prepare_harvested_data reads 'domain')
+    df["domain"] = raw_df["domain"].fillna("unknown").astype(str).values
+
     df.to_csv(OUTPUT_DIR / "climate_prepared_records.csv", index=False)
     print(f"  Saved climate_prepared_records.csv ({len(df)} rows)")
 
-    # ── 2. Sufficiency scoring (uses existing compute_all_sufficiency_scores) ─
-    #
-    # compute_all_sufficiency_scores uses the task weights defined in weights.json
-    # for early_warning / compliance_reporting / cross_border.
-    # We additionally compute the three climate task scores here using the
-    # CLIMATE_TASKS weight profiles.
-    # ─────────────────────────────────────────────────────────────────────────
-    print("\n=== Computing sufficiency scores (base + climate tasks) ===")
-    base_scores_df = compute_all_sufficiency_scores(df)
-    full_df = df.merge(base_scores_df, on="dataset_id", how="left")
+    # ── 2. Load weight profiles ───────────────────────────────────────────────
+    climate_weights  = load_climate_weights()
+    original_weights = load_weights()      # from config/weights.json
 
-    # Climate task scoring (manual weighted sum matching sufficiency_scoring logic)
-    from sufficiency_scoring import (
-        score_temporal_recency,
-        score_temporal_coverage,
-        score_update_frequency,
-        score_spatial_precision,
-        score_format_readability,
-        score_license_openness,
-        score_description_quality,
-        score_vocabulary_standard,
-    )
+    climate_tasks  = list(climate_weights.keys())
+    original_tasks = ["early_warning", "compliance_reporting", "cross_border"]
 
-    def _compute_climate_score(row: pd.Series, weights: dict) -> float:
-        """Weighted sum using the same individual metric scorers."""
-        metric_funcs = {
-            "temporal_recency":    score_temporal_recency,
-            "temporal_coverage":   score_temporal_coverage,
-            "update_frequency":    score_update_frequency,
-            "spatial_precision":   score_spatial_precision,
-            "format_readability":  score_format_readability,
-            "license_openness":    score_license_openness,
-            "description_quality": score_description_quality,
-            "vocabulary_standard": score_vocabulary_standard,
+    print(f"\n  Climate tasks  : {climate_tasks}")
+    print(f"  Original tasks : {original_tasks}")
+
+    # ── 3. Score all 6 tasks per dataset ─────────────────────────────────────
+    print("\n=== Computing sufficiency scores (6 tasks) ===")
+
+    score_records = []
+    for idx, row in df.iterrows():
+        rec = {
+            "dataset_uri": row["dataset_id"],
+            "domain":      row["domain"],
         }
-        total = 0.0
-        for metric, weight in weights.items():
-            fn = metric_funcs.get(metric)
-            if fn:
-                try:
-                    total += weight * fn(row)
-                except Exception:
-                    total += 0.0
-        return round(total, 4)
 
-    for task_name, weights in CLIMATE_TASKS.items():
-        col = f"{task_name}_score"
-        print(f"  Scoring: {task_name} …")
-        full_df[col] = full_df.apply(
-            lambda r, w=weights: _compute_climate_score(r, w), axis=1
-        )
+        # Climate tasks
+        for task in climate_tasks:
+            score, detail = compute_climate_task_score(row, task, climate_weights)
+            rec[f"{task}_score"]     = score
+            rec[f"{task}_readiness"] = classify_readiness(score)
+            for dim, s in detail.items():
+                rec[f"{task}_{dim}"] = s
 
-    full_df.to_csv(OUTPUT_DIR / "climate_sufficiency_scores.csv", index=False)
-    print(f"  Saved climate_sufficiency_scores.csv ({len(full_df)} rows)")
+        # Original tasks (re-use existing compute_sufficiency)
+        for task in original_tasks:
+            score, detail = compute_sufficiency(row, task, original_weights)
+            rec[f"{task}_score"]     = round(score, 4)
+            rec[f"{task}_readiness"] = classify_readiness(score)
+            for dim, s in detail.items():
+                rec[f"{task}_{dim}"] = round(float(s), 4)
 
-    # ── 3. Sensitivity analysis ───────────────────────────────────────────────
-    print("\n=== Running sensitivity analysis (±25% weight perturbation) ===")
-    # Pass only climate task score columns to the sensitivity analyser.
-    # run_sensitivity_analysis looks for columns ending in '_score'.
-    climate_score_cols = [f"{t}_score" for t in CLIMATE_TASKS]
-    sens_df = full_df[["dataset_id"] + climate_score_cols +
-                       list(df.columns.difference(["dataset_id"]))].copy()
+        score_records.append(rec)
 
-    try:
-        sens_results     = run_sensitivity_analysis(sens_df, perturbation=0.25)
-        sens_summary_df  = pd.DataFrame(sens_results["summary"])
-        sens_detail_df   = pd.DataFrame(sens_results["detail"])
-        sens_summary_df.to_csv(OUTPUT_DIR / "climate_sensitivity_summary.csv", index=False)
-        sens_detail_df.to_csv(OUTPUT_DIR  / "climate_sensitivity_detail.csv",  index=False)
-        print("  Saved climate_sensitivity_summary.csv & climate_sensitivity_detail.csv")
-        has_sensitivity = True
-    except Exception as e:
-        print(f"  Sensitivity analysis skipped: {e}")
-        sens_summary_df = pd.DataFrame()
-        has_sensitivity = False
+    scores_df = pd.DataFrame(score_records)
+    scores_df.to_csv(OUTPUT_DIR / "climate_sufficiency_scores.csv", index=False)
+    print(f"  Saved climate_sufficiency_scores.csv ({len(scores_df)} rows, "
+          f"{len(scores_df.columns)} columns)")
 
-    # ── 4. Impact & priority scores ───────────────────────────────────────────
-    print("\n=== Computing impact & priority scores ===")
-    impacts = []
-    for _, row in full_df.iterrows():
-        impact_val, impact_components = compute_impact(row)
-        impacts.append({
-            "dataset_id":  row["dataset_id"],
-            "impact_score": impact_val,
-            **{f"impact_{k}": v for k, v in impact_components.items()},
-        })
-    impact_df = pd.DataFrame(impacts)
-    full_df = full_df.merge(impact_df, on="dataset_id", how="left")
+    # ── 4. Summary statistics ─────────────────────────────────────────────────
+    print("\n=== Generating climate_analysis_summary.json ===")
 
-    for task_name in CLIMATE_TASKS:
-        score_col    = f"{task_name}_score"
-        priority_col = f"{task_name}_priority"
-        if score_col in full_df.columns:
-            full_df[priority_col] = full_df.apply(
-                lambda r, sc=score_col: compute_priority(r["impact_score"], r[sc]),
-                axis=1,
-            )
+    all_tasks = climate_tasks + original_tasks
 
-    # Top-20 priority fixes per climate task
-    priority_rows = []
-    for task_name in CLIMATE_TASKS:
-        priority_col = f"{task_name}_priority"
-        if priority_col in full_df.columns:
-            top = full_df.nlargest(20, priority_col).copy()
-            top["task"]          = task_name
-            top["priority_rank"] = range(1, len(top) + 1)
-            priority_rows.append(top)
-
-    if priority_rows:
-        priority_df = pd.concat(priority_rows, ignore_index=True)
-        priority_df.to_csv(OUTPUT_DIR / "climate_priority_fixes.csv", index=False)
-        print("  Saved climate_priority_fixes.csv")
-
-    full_df.to_csv(OUTPUT_DIR / "climate_priority_scores.csv", index=False)
-    print(f"  Saved climate_priority_scores.csv ({len(full_df)} rows)")
-
-    # ── 5. Summary statistics ─────────────────────────────────────────────────
-    print("\n=== Generating summary statistics ===")
-
-    def _pct(col, label):
-        return float(
-            (full_df[col].apply(classify_readiness) == label).mean() * 100
-        )
-
-    task_stats = {}
-    for task_name in CLIMATE_TASKS:
-        col = f"{task_name}_score"
-        if col not in full_df.columns:
-            continue
-        task_stats[task_name] = {
-            "mean":             float(full_df[col].mean()),
-            "std":              float(full_df[col].std()),
-            "median":           float(full_df[col].median()),
-            "ready_pct":        _pct(col, "Ready"),
-            "partial_pct":      _pct(col, "Partial"),
-            "insufficient_pct": _pct(col, "Insufficient"),
+    def _task_stats(task: str) -> dict:
+        col = f"{task}_score"
+        vals = scores_df[col].dropna()
+        if len(vals) == 0:
+            return {}
+        return {
+            "mean":             round(float(vals.mean()),   4),
+            "median":           round(float(vals.median()), 4),
+            "min":              round(float(vals.min()),    4),
+            "max":              round(float(vals.max()),    4),
+            "std":              round(float(vals.std()),    4),
+            "ready_pct":        round(float((scores_df[f"{task}_readiness"] == "Ready").mean()    * 100), 2),
+            "partial_pct":      round(float((scores_df[f"{task}_readiness"] == "Partial").mean()  * 100), 2),
+            "insufficient_pct": round(float((scores_df[f"{task}_readiness"] == "Insufficient").mean() * 100), 2),
         }
+
+    # Per-domain breakdown for climate tasks
+    domain_breakdown: dict = {}
+    for domain in scores_df["domain"].unique():
+        sub = scores_df[scores_df["domain"] == domain]
+        domain_breakdown[domain] = {
+            "count": len(sub),
+            "task_scores": {
+                task: round(float(sub[f"{task}_score"].mean()), 4)
+                for task in all_tasks
+                if f"{task}_score" in sub.columns
+            }
+        }
+
+    # Load original water harvest stats for comparison
+    water_stats_path = ROOT / "data" / "outputs_real" / "analysis_summary_real.json"
+    water_comparison: dict = {}
+    if water_stats_path.exists():
+        with open(water_stats_path) as f:
+            water_summary = json.load(f)
+        # water uses "early_warning", "compliance", "cross_border" keys in summary
+        suf = water_summary.get("sufficiency_scores", {})
+        for label, wdata in suf.items():
+            water_comparison[label] = {
+                "water_mean":   wdata.get("mean", None),
+                "climate_mean": (
+                    round(float(scores_df[f"{label}_score"].mean()), 4)
+                    if f"{label}_score" in scores_df.columns else
+                    (round(float(scores_df[f"{label.replace('compliance','compliance_reporting').replace('cross_border','cross_border')}_score"].mean()), 4)
+                     if f"{label.replace('compliance','compliance_reporting')}_score" in scores_df.columns else None)
+                ),
+            }
+        # Map directly for the three tasks
+        for orig_lbl, col_key in [("early_warning", "early_warning"),
+                                   ("compliance", "compliance_reporting"),
+                                   ("cross_border", "cross_border")]:
+            col = f"{col_key}_score"
+            if col in scores_df.columns and orig_lbl in suf:
+                water_comparison[orig_lbl] = {
+                    "water_mean_all_datasets": suf[orig_lbl].get("mean"),
+                    "climate_dataset_mean":    round(float(scores_df[col].mean()), 4),
+                }
+
+    # Metadata completeness
+    meta_completeness = {
+        "has_open_license_pct":  round(float(df["is_open_license"].mean()   * 100), 2),
+        "has_coordinates_pct":   round(float(df["has_coordinates"].mean()   * 100), 2),
+        "has_temporal_pct":      round(float(df["has_temporal_flag"].mean() * 100), 2),
+        "is_machine_readable_pct": round(float(df["is_machine_readable"].mean() * 100), 2),
+        "has_eurovoc_pct":       round(float(df["has_eurovoc"].mean()       * 100), 2),
+        "is_multilingual_pct":   round(float(df["has_multilingual"].mean()  * 100), 2),
+        "has_description_pct":   round(float((df["description_length"] > 0).mean() * 100), 2),
+    }
 
     summary = {
-        "analysis_timestamp": datetime.now().isoformat(),
-        "data_source":        "data.europa.eu SPARQL harvest (climate keywords)",
-        "total_records":      len(full_df),
-        "unique_datasets":    int(full_df["dataset_id"].nunique()),
-
-        "climate_domain_distribution": (
-            full_df["climate_domain"].value_counts().to_dict()
-            if "climate_domain" in full_df.columns else {}
-        ),
-        "country_distribution": full_df["country"].value_counts().head(15).to_dict(),
-
-        "task_scores": task_stats,
-
-        "metadata_completeness": {
-            "has_open_license":    float(full_df["is_open_license"].mean() * 100),
-            "has_coordinates":     float(full_df["has_coordinates"].mean() * 100),
-            "has_temporal":        float(full_df["has_temporal_flag"].mean() * 100),
-            "is_machine_readable": float(full_df["is_machine_readable"].mean() * 100),
-            "has_eurovoc":         float(full_df["has_eurovoc"].mean() * 100),
-            "is_multilingual":     float(full_df["has_multilingual"].mean() * 100),
-        },
-
-        "sensitivity": (
-            {
-                row["task"]: {
-                    "primary_metric": row["primary_metric"],
-                    "baseline_mean":  float(row["baseline_mean"]),
-                    "range_pp":       float(row["range_pp"]),
-                    "low_ready_pct":  float(row["low_ready_pct"]),
-                    "high_ready_pct": float(row["high_ready_pct"]),
-                }
-                for _, row in sens_summary_df.iterrows()
-            }
-            if has_sensitivity and not sens_summary_df.empty else {}
+        "analysis_timestamp":    datetime.now().isoformat(),
+        "total_records":         len(scores_df),
+        "unique_datasets":       int(scores_df["dataset_uri"].nunique()),
+        "domain_distribution":   scores_df["domain"].value_counts().to_dict(),
+        "task_scores":           {task: _task_stats(task) for task in all_tasks},
+        "domain_breakdown":      domain_breakdown,
+        "water_comparison":      water_comparison,
+        "metadata_completeness": meta_completeness,
+        "discovery_gap_note":    (
+            "nature_based_solutions domain returned 0 datasets in both primary "
+            "and fallback SPARQL harvests. drought_early_warning: 500 datasets; "
+            "climate_infrastructure: 494 datasets."
         ),
     }
 
@@ -381,31 +264,38 @@ def main():
         json.dump(summary, f, indent=2)
     print("  Saved climate_analysis_summary.json")
 
-    # ── 6. Print key results ──────────────────────────────────────────────────
+    # ── 5. Console summary ────────────────────────────────────────────────────
     print("\n" + "=" * 60)
-    print("CLIMATE ADAPTATION READINESS RESULTS")
+    print("CLIMATE SUFFICIENCY SCORES SUMMARY")
     print("=" * 60)
-    print(f"\nTotal datasets analyzed  : {summary['total_records']}")
-    print(f"Unique dataset URIs      : {summary['unique_datasets']}")
+    print(f"\nTotal datasets : {len(scores_df)}")
+    print(f"Domains        : {scores_df['domain'].value_counts().to_dict()}")
+    print()
+    print(f"{'Task':<30s} {'Mean':>6} {'Median':>7} {'Ready%':>8} {'Partial%':>9} {'Insuff%':>9}")
+    print("-" * 72)
+    for task in all_tasks:
+        st = _task_stats(task)
+        if st:
+            label = "climate_" + task if task in climate_tasks else task
+            print(f"  {task:<28s} {st['mean']:>6.3f} {st['median']:>7.3f} "
+                  f"{st['ready_pct']:>7.1f}% {st['partial_pct']:>8.1f}% "
+                  f"{st['insufficient_pct']:>8.1f}%")
 
-    print("\nCLIMATE DOMAIN DISTRIBUTION:")
-    for dom, cnt in summary["climate_domain_distribution"].items():
-        print(f"  {dom}: {cnt}")
+    print("\nMETADATA COMPLETENESS:")
+    for k, v in meta_completeness.items():
+        print(f"  {k:<30s}: {v:.1f}%")
 
-    print("\nSUFFICIENCY SCORES — CLIMATE TASKS (Mean ± SD):")
-    for task, s in task_stats.items():
-        print(
-            f"  {task:28s}: {s['mean']:.3f} ± {s['std']:.3f}  "
-            f"Ready={s['ready_pct']:.1f}%  "
-            f"Partial={s['partial_pct']:.1f}%  "
-            f"Insufficient={s['insufficient_pct']:.1f}%"
-        )
+    # ── 6. Spot-check 3 individual datasets ──────────────────────────────────
+    print("\n=== SPOT-CHECK: 3 random dataset scores ===")
+    sample = scores_df.sample(min(3, len(scores_df)), random_state=42)
+    for _, row in sample.iterrows():
+        print(f"\n  URI   : {row['dataset_uri'][:70]}")
+        print(f"  Domain: {row['domain']}")
+        for task in climate_tasks:
+            col = f"{task}_score"
+            print(f"  {task:<30s}: {row[col]:.4f}  ({row[f'{task}_readiness']})")
 
-    print("\nMETADATA COMPLETENESS (% of datasets):")
-    for field, pct in summary["metadata_completeness"].items():
-        print(f"  {field:25s}: {pct:.1f}%")
-
-    print(f"\nAll climate results saved to: {OUTPUT_DIR}")
+    print(f"\nAll outputs saved to: {OUTPUT_DIR}")
     return summary
 
 

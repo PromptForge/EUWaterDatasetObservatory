@@ -1,0 +1,36 @@
+{
+  "harvest_timestamp": "2026-03-25T17:40:11.882292",
+  "elapsed_seconds": 1516.1,
+  "total_datasets": 994,
+  "unique_datasets": 994,
+  "datasets_per_domain": {
+    "drought_early_warning": 500,
+    "climate_infrastructure": 494,
+    "nature_based_solutions": 0
+  },
+  "zero_result_domains": [
+    "nature_based_solutions"
+  ],
+  "fallback_keywords_tried": {
+    "nature_based_solutions": 0
+  },
+  "overlap_with_water_harvest": 20,
+  "domain_distribution": {
+    "drought_early_warning": 500,
+    "climate_infrastructure": 494
+  },
+  "country_distribution": {
+    "unknown": 977,
+    "poland": 6,
+    "eu": 5,
+    "germany": 4,
+    "netherlands": 2
+  },
+  "has_license_pct": 0.1006036217303823,
+  "is_open_license_pct": 0.1006036217303823,
+  "has_coordinates_pct": 38.6317907444668,
+  "has_temporal_pct": 49.69818913480885,
+  "is_multilingual_pct": 1.5090543259557343,
+  "has_description_pct": 58.24949698189135,
+  "discovery_gap_note": "Domains with zero results after primary and fallback keyword passes: ['nature_based_solutions']. This indicates a structural discovery gap in the data.europa.eu federated catalogue for these climate adaptation topics."
+}

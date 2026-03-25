@@ -1,0 +1,4 @@
+task,primary_metric,primary_weight_baseline,primary_weight_low,primary_weight_high,baseline_mean_score,low_mean_score,high_mean_score,baseline_ready_pct,low_ready_pct,high_ready_pct,range_pp,robust
+drought_early_warning,temporal_coverage,0.25,0.2,0.2941,0.0984,0.1049,0.0926,0.0,0.0,0.0,0.0,True
+climate_infrastructure,description_quality,0.25,0.2,0.2941,0.1468,0.1409,0.1521,0.0,0.0,0.0,0.0,True
+nbs_monitoring,temporal_coverage,0.2,0.1579,0.2381,0.1832,0.1928,0.1745,0.0,0.0,0.0,0.0,True
